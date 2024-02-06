@@ -1,0 +1,61 @@
+import React, { Fragment, Suspense, lazy, useEffect } from 'react';
+import { Route, Routes , Navigate } from 'react-router-dom';
+import Loading from './Components/Loading/Loading';
+import AuthRoute from './RouteProtection/AuthRoute';
+import Error404 from './Components/PageNotFound/Error404';
+import Cookies from 'js-cookie';
+import { checkCookieHandler } from './APIS/APIs';
+import UserRoutes from './RouteProtection/AuthRoute';
+import ScrollToTop from './ScrollToTop';
+
+const Login = lazy(() => import('./Components/Entry/Login'));
+const Dashboard = lazy(() => import('./Components/Home/Index'));
+const StallProfile = lazy(() => import('./Components/Stall/Profile'));
+const ProductService = lazy(() => import('./Components/Stall/ProductorService'));
+const ProfilePage = lazy(() => import('./MainComponents/Profile/Index'));
+const DashboardPage = lazy(() => import('./MainComponents/Dashboard/Index'));
+const EventInsights = lazy(() => import('./MainComponents/Dashboard/EventInsights'));
+const EditProfile = lazy(() => import('./MainComponents/EditProfile/Index'));
+const EditStall = lazy(() => import('./MainComponents/EditStall/Index'));
+const Yuktijewels = lazy(() => import('./MainComponents/Profile/YuktijewelsProfile'));
+const Profile = lazy(() => import('./MainComponents/NewProfile/Index'));
+const NewStallProfile = lazy(() => import('./MainComponents/NewStallProfile/Index'));
+const BookMark = lazy(() => import('./Components/Bookmark/index'));
+const VisitorProfile = lazy(() => import('./Components/VisitorProfile/index'));
+const ServiceOrProductCreate = lazy(() => import('./MainComponents/EditProfile/ServiceOrProductCreate'));
+const ExportToExcel = lazy(() => import('./MainComponents/Dashboard/ExportToExcel'));
+
+
+const App = () => {
+  // const cookie = Cookies.get("mycookie");
+  // console.log("cookie",cookie);
+  // useEffect(()=>{
+  //   checkCookieHandler("POST",{check:"true"})
+  // },[])
+  return (
+    <Suspense fallback={<Loading/>}>
+      <ScrollToTop/>  
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<UserRoutes> <Dashboard/> </UserRoutes> } />
+        <Route path="/stallprofile" element={<UserRoutes><StallProfile/></UserRoutes>} />
+        <Route path="/productservicedetails/:id" element={ <UserRoutes><ProductService/></UserRoutes>} />
+        <Route path="/profile/:profileUserName" element={<ProfilePage/>} />
+        <Route path="/userdashboard" element={<UserRoutes> <DashboardPage/></UserRoutes> } />
+        <Route path="/eventinsights" element={<UserRoutes> <EventInsights/></UserRoutes>} />
+        <Route path="/editprofile" element={<UserRoutes> <EditProfile/></UserRoutes>  } />
+        <Route path="/editstall" element={<UserRoutes> <EditStall/> </UserRoutes> } />
+        <Route path="/profile/yuktijewels" element={ <Yuktijewels/>  } />
+        <Route path="/profile/username" element={ <Profile/>  } />
+        <Route path="/stall/:stallid" element={<UserRoutes> <NewStallProfile/> </UserRoutes>  } />
+        <Route path="/bookmark" element={<UserRoutes> <BookMark/> </UserRoutes> } />
+        <Route path="/visitorprofile" element={ <VisitorProfile/>  } />
+        <Route path="/createproductservices" element={ <ServiceOrProductCreate  />  } />
+        <Route path="/excelexport" element={ <ExportToExcel  />  } />
+        <Route path="*" element={<Error404/>} />
+      </Routes>
+    </Suspense>
+  );
+};
+
+export default App;
