@@ -72,6 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 This should be added
 
-
+going to merge this 
 
 This changes will be merged with development branch
