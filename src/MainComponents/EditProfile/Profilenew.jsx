@@ -193,6 +193,7 @@ const EditDataSetHandler = ()=>{
                  linkedin:linkedin
                 },
      }
+     console.log("data",data)
      setIsLoading(true);
     updateUserProfileHandler("POST",data).then(response=>{
       setIsLoading(false);            
@@ -248,8 +249,8 @@ const LinkAdjustmentsHandler = (link)=>{
            
         
     <div className=' min-h-[50vh] relative '>
-    <div className='max-w-[600px] lg:max-w-[400px] fixed  ' >
-      <div className='w-[99.6%] h-[210px] relative'>
+    <div className='w-[100%] lg:max-w-[400px] fixed   ' >
+      <div className='w-[99.6%] h-[210px]'>
          
         <img src={userData?.banner} loading="lazy" alt="Profile GIF" className='h-[210px] w-[100%] ' />
         <button className='absolute top-[120px] left-[80%] text-[20px] items-center font-medium px-2 active:text-[35px] text-[#9EE86F] flex gap-1 rounded-full' onClick={()=>{EditDataSetHandler() ;setShowModal1(true)}}>
@@ -442,14 +443,14 @@ null
                 <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><IoPersonCircleOutline /></div>
                 <input type="text" value={displayName} placeholder='Display Name' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDisplayName(e.target.value)} />
                </div>
-               <div className=' relative Roboto-Font'>
+               {/* <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>User Name <sup className='text-[#D50B0B]'>*</sup></div>
                 <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><IoPersonCircleOutline /></div>
                 <input type="text" value={userName} placeholder='User Name' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setuserName(e.target.value)} />
 
-               </div>
+               </div> */}
                <div className=' relative Roboto-Font'>
-                <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Company name <sup className='text-[#D50B0B]'>*</sup></div>
+                <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Company name </div>
                 <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><HiOutlineBuildingOffice2 /></div>
                 <input type="text" value={companyName} placeholder='Company Name' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setCompanyName(e.target.value)} />
 
@@ -509,12 +510,12 @@ null
                            Contact Details  
                       </div>
                       <div className=' relative Roboto-Font'>
-                       <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Phone No <sup className='text-[#D50B0B]'>*</sup></div>
+                       <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Phone No </div>
                        <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><MdOutlineCall /></div>
                        <input type="text" value={phoneNo} placeholder='9898989898' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setPhoneNo(e.target.value)} />
                       </div>
                       <div className=' relative Roboto-Font'>
-                       <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Whatsapp No <sup className='text-[#D50B0B]'>*</sup></div>
+                       <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Whatsapp No </div>
                        <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><RiWhatsappLine /></div>
                        <input type="text" value={whatsapp} placeholder='9898989898' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setWhatsapp(e.target.value)} />
                       </div>

@@ -39,7 +39,7 @@ const previewStyle = {
 }
 
 const Index = () => {
-  console.log("users details",user)
+  // console.log("users details",user)
 
    const [isSearch,setIsSearch] = useState(false);
    const [query,setQuery] = useState('');
@@ -49,6 +49,7 @@ const Index = () => {
    const [stalls,setStalls] = useState([]);
    const [filterStalls,setFilterStalls] = useState([]);
    const [visitorEventdata,setVisitorEventData] = useState('');
+   const [recentvisits,setRecentVisits] = useState([]);
    const navigate = useNavigate();
    const [filter,setFilter] = useState({
         query:"",
@@ -76,23 +77,15 @@ const Index = () => {
     }
     GetVisitorDetailsForEventsHandler("POST",data).then(response=>{
       setVisitorEventData(response.data);
-      console.log("response",response);
+      setRecentVisits(response.data.RecentVisits);
+      // console.log("response vistoe event response",response);
     })
    }
+  //  console.log("Recent stall Visits",recentvisits);
 
 
-   const handleScan = (data)=>{
-    console.log("result",data);
-    if(data){
-      if(data.text){
-      setIsScanOpen(false);
-      window.open(data.text, '_blank');
-      }
-    }
-   }
-   const handleError=(err)=>{
-     console.error(err)
-   }
+   
+   
 
    const switchCamera = () => {
     // console.log("swith camer",facingMode);
@@ -101,34 +94,29 @@ const Index = () => {
     );
   };
   
-  const onNewScanResult = (decodedText, decodedResult) => {
-    // handle decoded results here
-    console.log("decodedtext and decodedResult",decodedText ,decodedResult)
-    const lastPart = decodedText.substring(decodedText.lastIndexOf('/') + 1);
-    console.log("last part",lastPart);
-    navigate(`/stall/${lastPart}`)
-    setIsScanOpen(false);
-    // window.open(decodedText, '_blank');
+  
 
-  };
 
-  const qrCodeErrorCallback = (errorMessage) => {
-    console.error("Error while scanning QR Code: ", errorMessage);
-    // You can handle the error here
-    // For example, you might want to display an error message to the user
-};
 
-function isIDPresent(idToCheck, array) {
-  return array.some(id => id === idToCheck);
+
+
+function filterArrayInVisitOrder(filteredArray, recentVisit) {
+  const resultArray = [];
+  recentVisit.forEach(id => {
+      const foundObject = filteredArray.find(obj => obj._id === id);
+      if (foundObject) {
+          resultArray.push(foundObject);
+      }
+  });
+  return resultArray;
 }
 
-const lastThreeElements = visitorEventdata?.StallID &&  visitorEventdata?.StallID.slice(-3);
-console.log("last three Elements" , lastThreeElements);
 let filteredArray = [];
-if(stalls?.length > 0 && lastThreeElements?.length > 0){
- filteredArray = stalls?.length > 0 && lastThreeElements.length > 0 &&    stalls.filter(item => lastThreeElements.includes(item._id));
+if(stalls?.length > 0 && recentvisits?.length > 0){
+ filteredArray = stalls?.length > 0 && recentvisits.length > 0 &&    stalls.filter(item => recentvisits.includes(item._id));
+ filteredArray =filterArrayInVisitOrder(filteredArray , recentvisits);
 }
-console.log("filterarray",filteredArray);
+// console.log("filterarray",filteredArray);
 
 const QueryOnChangeHandler = (e)=>{
   setFilter(prev => ({ ...prev, query: e.target.value }));
@@ -136,7 +124,7 @@ const QueryOnChangeHandler = (e)=>{
 
 const filterStallHandler = () => {
   let filterdata = stalls; // Assuming stalls is your original array
-   console.log("filter data",filterdata);
+  //  console.log("filter data",filterdata);
   if (filterdata.length > 0) {
     if (filter.query) {
       console.log("query", filter.query);

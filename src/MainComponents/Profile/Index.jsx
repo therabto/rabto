@@ -136,9 +136,9 @@ const LinkAdjustmentsHandler = (link)=>{
       {/* Aside Start */}
          
       <div className={` max-w-[600px] lg:max-w-[400px]  md:flex`}>
-          <div className={`absolute ld:static top-0 left-0 bottom-0 right-0 bg-[#000000] opacity-[37%] transition-all duration-300 ease-in-out   z-40 ${isAsideOpen ? "w-full lg:w-full" : "w-0"}`} onClick={handleAside}></div>
-          <div className={`absolute ld:static h-[100vh]  top-0 bottom-0 left-0 z-50 lg:z-50 rounded-r-[50px]  bg-white   transition-all duration-500 w-[300px] ease-in-out ${isAsideOpen ? " ml-0  md:w-[300px]" : "md:w-[0px] md:ml-0 -ml-[300px] "}`}>
-           <div className={`${isAsideOpen ? "  md:block " : "md:hidden"}`}>
+          <div className={`absolute ld:static h-[100vh] top-0 left-0 bottom-0 right-0 bg-[#000000] opacity-[37%] transition-all  duration-300 ease-in-out   z-40 ${isAsideOpen ? "w-full lg:w-full" : "w-0"}`} onClick={handleAside}></div>
+          <div className={`absolute ld:static h-[100vh]  top-0 bottom-0 left-0 z-50 lg:z-50 rounded-r-[50px]  bg-white    transition-all duration-500 w-[300px] ease-in-out ${isAsideOpen ? " ml-0  md:w-[300px]" : "md:w-[0px] md:ml-0 -ml-[300px] "}`}>
+           <div className={`${isAsideOpen ? "  md:block " : "  md:hidden"}`}>
            <Aside userData={userData} />
            </div>
           </div>

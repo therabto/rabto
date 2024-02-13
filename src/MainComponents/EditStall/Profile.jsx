@@ -273,9 +273,11 @@ const checkSuncription = ()=>{
 
 return (
     <Fragment>
+      <div className='border max-w-[600px] lg:max-w-[400px] m-auto relative'>
+
         <div className='mx-5 min-h-screen pb-5'>
             <div className='flex p-4'>        
-               <div className="flex-1 text-left fixed z-50 shadow-2xl  top-5 left-5"><Link to={`/profile/${USER_NAME}`}><FaArrowLeft className='text-[20px]' /></Link></div>
+               <div className="flex-1 text-left absolute bg-white p-1 rounded-[5px] z-50 shadow-2xl  top-5 left-5"><Link to={`/profile/${USER_NAME}`}><FaArrowLeft className='text-[20px]' /></Link></div>
                {/* <div className="flex-1 text-[12px] text-right text-[#3F3131] gilroyBold" ><span onClick={handlePrint} className='cursor-pointer'>E-brochure</span></div> */}
             </div>
             {
@@ -337,6 +339,7 @@ return (
             </Fragment>
            } 
         </div>
+
        
         
 
@@ -549,8 +552,8 @@ null
    null
    :
      <div className={` max-w-[600px]  lg:max-w-[400px]  md:flex`}>
-          <div className={`fixed  top-0 left-0 bottom-0 right-0 bg-[#000000] opacity-[37%]    z-10 ${true ? "w-full  h-full" : "w-0"}`}></div>
-          <div className={`fixed  p-5 bottom-0  right-0 left-0 z-20 lg:z-50 rounded-[50px]  bg-white m-auto   transition-all duration-500   ease-in-out ${true ? " top-[0vh] h-[300px] w-[300px] " : " top-[110vh] h-[0px]  w-[300px] "}`}>
+          <div className={`absolute  top-0 left-0 bottom-0 right-0 bg-[#000000] opacity-[37%]    z-10 ${true ? "w-full  h-full" : "w-0"}`}></div>
+          <div className={`absolute  p-5 bottom-0  right-0 left-0 z-20 lg:z-50 rounded-[50px]  bg-white m-auto   transition-all duration-500   ease-in-out ${true ? " top-[0vh] h-[320px] w-[300px] " : " top-[110vh] h-[0px]  w-[300px] "}`}>
                <div className={`${true ? "block delay-150" : "hidden"}`}>
                 <div className='flex items-center justify-center w-[100%]'><img src={upgrade} alt=" scanning qr code" className='w-[80px] h-[150px]' /></div>
                <div className='flex items-center justify-center  mt-10 gilroyBold text-[#000000] text-[16px] text-center' style={{fontWeight:600}}>Please Upgrade To Business Profile
@@ -566,7 +569,8 @@ null
 
 
 }
-
+</div>
+  
     </Fragment>
   )
 }

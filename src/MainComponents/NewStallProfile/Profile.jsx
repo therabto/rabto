@@ -108,7 +108,8 @@ const BookMarkHandler = ()=>{
 
   return (
     <Fragment>
-    <div className='min-h-[90vh] relative pb-10'>
+      <div className='border max-w-[600px] lg:max-w-[400px] m-auto relative'>
+      <div className='min-h-[90vh] relative pb-10'>
         <div className='relative h-[40px]'>
            <div className='absolute top-5 left-5'>
             <Link to="/dashboard" className='w-[30px] h-[30px] rounded-full flex items-center justify-center font-extrabold' style={{boxShadow: "0px 2px 7px 1px #1624494D"}}>
@@ -182,11 +183,12 @@ const BookMarkHandler = ()=>{
                  
                </Swiper>
         </div>
-    </div>
-    <a href={stallProfile?.ebrochure} download className='flex items-center justify-center py-3 w-[100%]'>
+      </div>
+       <a href={stallProfile?.ebrochure} download className='flex items-center justify-center py-3 w-[100%]'>
         <button className='w-[200px] bg-[#9EE86F] rounded-[20px] py-3 gilroyBold text-[#0F2604] text-[13px] '>View E-brochure </button>
-    </a>
-    <Footer/>
+       </a>
+       <Footer/>
+      </div>
     </Fragment>
   )
 }

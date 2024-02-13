@@ -103,7 +103,7 @@ const Index = () => {
             >
                 <div className="flex items-center">
                     <div className="flex-1 text-left">
-                    <div className='gilroyLight text-[16px] '>Recently Events</div>
+                    <div className='gilroyLight text-[16px] '>Recent Events</div>
                     </div>
                     <div className="gilroyMedium font-bold text-[#9EE86F] flex-1 text-right">
                         See All

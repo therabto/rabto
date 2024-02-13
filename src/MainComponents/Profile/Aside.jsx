@@ -69,7 +69,7 @@ console.log("userData",userData);
               <div className=' relative  w-[50px] h-[50px] rounded-full ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
               <img src={userData?.profilePhoto} className='w-[50px] h-[50px]  rounded-full' />
               </div>
-              <div className='gilroyBold text-[24px] text-[#000000] ml-4'>{userData.displayName}</div>
+              <div className='gilroyBold text-[24px] text-[#000000] ml-4'>{userData?.displayName}</div>
               <BsShieldFillCheck className='text-[#2F80ED]' />
               </Link>
 

@@ -165,6 +165,7 @@ const EditDataSetHandler = ()=>{
                  linkedin:linkedin
                 },
      }
+    console.log("data",data);
     updateUserProfileHandler("POST",data).then(response=>{
       console.log("response",response);
         if(response.isSuccess){
