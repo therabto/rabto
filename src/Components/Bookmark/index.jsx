@@ -38,7 +38,7 @@ const Index = () => {
    }
    GetVisitorDetailsForEventsHandler("POST",data).then(response=>{
      setVisitorEventData(response.data);
-     console.log("response",response);
+    //  console.log("response",response);
    })
   }
 
@@ -46,7 +46,7 @@ const Index = () => {
 
 if(stalls?.length > 0 && visitorEventdata?.Bookmark )
 filteredArray = stalls?.length > 0 && visitorEventdata?.Bookmark.length > 0 &&  stalls?.filter(item => visitorEventdata?.Bookmark.includes(item._id));
-console.log("filterarray",filteredArray);
+// console.log("filterarray",filteredArray);
 
 
   return (

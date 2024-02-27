@@ -17,7 +17,7 @@ const SaveContact = ({ name   , phoneNo  }) => {
          
         };
 
-        console.log("contact",contact);
+        // console.log("contact",contact);
         
     
         // Create vCard content

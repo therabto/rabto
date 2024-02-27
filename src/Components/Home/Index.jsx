@@ -93,13 +93,7 @@ const Index = () => {
     prevFacingMode === 'front' ? 'rear' : 'front'
     );
   };
-  
-  
-
-
-
-
-
+ 
 function filterArrayInVisitOrder(filteredArray, recentVisit) {
   const resultArray = [];
   recentVisit.forEach(id => {
@@ -127,7 +121,7 @@ const filterStallHandler = () => {
   //  console.log("filter data",filterdata);
   if (filterdata.length > 0) {
     if (filter.query) {
-      console.log("query", filter.query);
+      // console.log("query", filter.query);
       filterdata = filterdata.filter(item => item.name.toLowerCase().includes(filter.query.toLowerCase()));
     }      
     // if (filter.category) {

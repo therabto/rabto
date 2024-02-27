@@ -8,7 +8,6 @@ import  Minilogo from "../../Assets/Visitors/mini_logo.png";
 import  gif from "../../Assets/Visitors/Development purpose.gif";
 import Footer from '../../MainComponents/Footer/Footer';
 
-
 const Profile = () => {
   const handlePrint = () => {
     window.print();

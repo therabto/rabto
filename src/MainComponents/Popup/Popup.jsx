@@ -1,6 +1,6 @@
 import React,{Fragment} from 'react'
 
-const Popup = ({isDelete ,isUserEdit ,isUserCreate ,isAddFarm ,isEditFarm ,isUserDelete ,isAddProduced ,isInventoryDelete ,isEditProduced, isEdit , isCreate , handleModel ,isAddClient ,isEditClient}) => {
+const Popup = ({isDelete    , isEdit , isCreate , handleModel }) => {
   return (
     <Fragment>
         

@@ -27,7 +27,7 @@ const Index = () => {
 
   const GetauserProfile = async ()=>{
     GetuserProfile(USER_NAME).then(response=>{
-        console.log("response",response);
+        // console.log("response",response);
         if(response.isSuccess){
            setUserData(response.data);
         }
@@ -38,7 +38,7 @@ const Index = () => {
   const handleTab = (tabValue)=>{
      setActiveTab(tabValue)
   }
-  console.log("user data",userData);
+  // console.log("user data",userData);
 
   return (
    <Fragment>

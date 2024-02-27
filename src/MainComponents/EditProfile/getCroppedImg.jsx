@@ -1,4 +1,6 @@
 // getCroppedImg.js
+import { getStorage, ref, uploadBytes ,getDownloadURL , uploadBytesResumable , } from "firebase/storage";
+import {app , db} from '../../Config/Firebase';
 
 export default function getCroppedImg(imageUrl, croppedAreaPixels) {
     const img = new Image();
@@ -20,10 +22,12 @@ export default function getCroppedImg(imageUrl, croppedAreaPixels) {
       croppedAreaPixels.width,
       croppedAreaPixels.height
     );
-    //  console.log("canvas",canvas);
-     // Convert the canvas to a base64-encoded string
-     const base64ImageData = canvas.toDataURL("image/jpeg");
-    //  resolve(base64ImageData);
-    return base64ImageData ;
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((file) => {
+        file.name = 'cropped.jpeg';
+        resolve({ file: file, url: URL.createObjectURL(file) });
+      }, 'image/jpeg');
+    });
   }
   

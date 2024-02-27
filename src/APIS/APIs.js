@@ -14,7 +14,7 @@ let responsePayload = "";
 let userID = "";
 if(cookie){
 responsePayload = jwtDecode(cookie);
-console.log("response Payload ",responsePayload);
+// console.log("response Payload ",responsePayload);
 userID = responsePayload.id ;
 }
 export let userid = responsePayload.id ;
@@ -56,14 +56,13 @@ if (userID) {
         // console.error("Error fetching user name:", error);
       }
     };
-  
     // Call the function
     userName = await fetchUserName();
   } 
   
-console.log("Access",userName);
+// console.log("Access",userName);
 export let USER_NAME= userName ;
-console.log("userName",userName);
+// console.log("userName",userName);
 // export const AfterLoginRedirectURL = `https://app.rabto.in/dashboard`;
 export const AfterLoginRedirectURL = `http://localhost:3000/profile/${responsePayload.userName}`;
 
@@ -98,12 +97,10 @@ export const checkCookieHandler = (action,data)=>{
     return output ;
 }
 
-
 export const GetuserProfile = async (userName)=>{
     let output = fetch(`${BASE_URL}/api/user/get-a-user/${userName}`,{method:"GET"}).then(res=>res.json())
     return output ;
 }
-
 
 export const updateUserProfileHandler = (action,data)=>{
     options.method = action ;
@@ -152,7 +149,6 @@ export const GetuserProductHandler = (userID)=>{
   return output ;
  }
 
-
  export const CreateEventHandler = (action,data)=>{
   options.method = action ;
   data.cookie = cookie ;
@@ -186,9 +182,8 @@ export const GetuserEventHandler = (userID)=>{
  return output ;
 }
 
-
 export const CreateStallHandler = (action,data)=>{
-  console.log("data",data);
+  // console.log("data",data);
 
   options.method = action ;
   data.cookie = cookie ;
@@ -269,7 +264,7 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
  export const ScannedVisitorStallCreate = (action , data)=>{ 
   options.method = action ;
   data.cookie = cookie ;
-   console.log("data",data);
+  //  console.log("data",data);
   options.body = JSON.stringify(data);
   let output = fetch(`${BASE_URL}/api/visitors/create-visitor-user`,options).then(res=>res.json());
   return output ;
@@ -279,8 +274,8 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
   options.method = action ;
   data.cookie = cookie ;
   options.body = JSON.stringify(data);
-  console.log("data",data);
-  console.log("options",options);
+  // console.log("data",data);
+  // console.log("options",options);
   let output = fetch(`${BASE_URL}/api/stalluser/create-stall-user`,options).then(res=>res.json());
   return output ;
  }
@@ -335,8 +330,3 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
   let output = fetch(`${BASE_URL}/api/user/get-user-qr`,{method:"GET"}).then(res=>res.json());
   return output ;
  }
- 
-
-
-
-

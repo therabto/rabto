@@ -21,7 +21,7 @@ const SaveContact = ({ name ,notes ,email , phoneNo , website , instagram ,faceb
           email:email
         };
 
-        console.log("contact",contact);
+        // console.log("contact",contact);
         
     
         // Create vCard content

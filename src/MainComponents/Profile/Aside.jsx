@@ -47,23 +47,31 @@ useEffect(()=>{
 
 const getUserProfile = async()=>{
   GetuserProfile(USER_NAME).then(response=>{
-  console.log("response",response);
+  // console.log("response",response);
   if(response.isSuccess){
      setUserData(response.data);
   }       
   })
 }
 
-console.log("userData",userData);
+// console.log("userData",userData);
 
   return (
    <Fragment>
        <div className=' absolute h-[100vh] rounded-r-[20px] bg-[#E7E7E7] w-[100%] '>
-              <div className='rounded-tr-[20px] px-10 bg-white py-5'>
-              <Footer/>
+              <div className='rounded-tr-[20px] px-10 bg-[#E7E7E7] py-3'>
+              <div className='h-[60px] my-auto    bottom-0 left-0 right-0 bg-[#E7E7E7]'>
+              <div className='flex flex-col items-center justify-center  '>
+                    <div className="flex  items-center relative  justify-center px-5 ">
+                      <img src={Minilogo} alt='Minilogo' className='w-[33px]' />
+                      <span className='text-[33px] vvdsfifties text-[#0F2604]'>RABTO</span>         
+                      <div className='absolute bottom-0 left-[52px] text-[#0F2604] text-[6px] text-center'>A Product of theDot Tech</div>
+                    </div>
+                </div>
+              </div>
               </div>
               <div className=''>
-              <div className='bg-white mt-10 h-[70vh] mx-3  rounded-[20px] py-5'>
+              <div className='bg-white mt-3 h-[70vh] mx-3  rounded-[20px] py-2'>
               
               <Link to={`/profile/${USER_NAME}`} className='flex items-center justify-start px-5   rounded-r-[20px] gap-1 mt-5'>
               <div className=' relative  w-[50px] h-[50px] rounded-full ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
@@ -74,7 +82,7 @@ console.log("userData",userData);
               </Link>
 
               <div>
-              <div className='mt-10 flex flex-col gap-2'>
+              <div className='mt-5 flex flex-col gap-2'>
                 <div className='border-b-[1px] border-[#E7E7E7]'></div>
                  {
                   asideArray.map(menu=>

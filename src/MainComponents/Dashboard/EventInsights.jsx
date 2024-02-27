@@ -51,9 +51,9 @@ const UpdateLeadHandler = (id , leads)=>{
     eventid:Event_ID,
     lead:leads 
    }
-   console.log('data',data);
+  //  console.log('data',data);
 LeadCreateHandler("POST",data).then((response)=>{
-   console.log("response",response);
+  //  console.log("response",response);
 })
 }
 useEffect(()=>{
@@ -62,12 +62,12 @@ useEffect(()=>{
 
 const getStallHandler = ()=>{
   GetuserStallHandler(userid).then(response=>{
-        console.log("reponse event",response)
+        // console.log("reponse event",response)
         setStallProfile(response.data); 
 
     })
    }
-console.log("stall profile",stallProfile);
+// console.log("stall profile",stallProfile);
 useEffect(()=>{
   if(activeTab === "MYSTALL")
   GetVisitorDetailsHandler()
@@ -85,26 +85,26 @@ const GetVisitorDetailsHandler = ()=>{
       eventid :Event_ID
     }
     GetDashboardVisitorsForEvents("POST",data).then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        setVisitorDeatails(response.data);
        setBookMark(response.BookmarkCount);
        setIsLoading(false);
 
     })
   
-      console.log("eventid",Event_ID , "Stall ID",stallProfile._id);
+      // console.log("eventid",Event_ID , "Stall ID",stallProfile._id);
   }
   else{
     setIsLoading(false);
   }
 } 
 
-console.log("tabs",activeTab);
+// console.log("tabs",activeTab);
 
 const GetApplicationUserLeads = ()=>{
   setIsLoading(true);
   getUserDetailsForleadsHandler().then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        setVisitorDeatails(response.data);
        setIsLoading(false);       
   })
@@ -129,8 +129,8 @@ const GetApplicationUserLeads = ()=>{
             {
           stallProfile == "" || stallProfile == null ? 
          <div className='flex justify-center items-center text-[40px] font-semibold'> No Leads Found </div> 
-         :   <>
-            <div className='mx-5 mt-10'>
+          :   <>
+         <div className='mx-5 mt-10'>
 
              <div className='text-[#000000] gilroyBold text-[18px] font-semibold mb-5'>Event insights</div>
              <div className='w-[100%] rounded-[20px] py-4 px-2' style={{ boxShadow: '0px 4px 6.599999904632568px 0px #00000040'}}>

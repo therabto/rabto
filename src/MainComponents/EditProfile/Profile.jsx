@@ -71,7 +71,7 @@ const handleModalClose = () => {
 
 const getUserProfile = async()=>{
       GetuserProfile(profileUserName).then(response=>{
-      console.log("response",response);         
+      // console.log("response",response);         
       })
 }
 useEffect(()=>{
@@ -108,40 +108,40 @@ const EditDataSetHandler = ()=>{
   }, []);
 
   const handleProfilePictureUpload = (e)=>{
-        console.log("photo",e.target.files[0]);
+        // console.log("photo",e.target.files[0]);
         let file = e.target.files[0] ;
         if (file) {         
           // var imageUrl = URL.createObjectURL(file);           
           // setPhoto(imageUrl);
           UploadFile(file)
           .then((downloadURL) => {
-            console.log("Download URL:", downloadURL);
+            // console.log("Download URL:", downloadURL);
             setPhoto(downloadURL)
            })
           .catch((error) => {
-            console.error("Error:", error);
+            // console.error("Error:", error);
              });     
           
       }
   }
   const handleProfileBannerUpload = (e)=>{
-    console.log("photo",e.target.files[0]);
+    // console.log("photo",e.target.files[0]);
         let file = e.target.files[0] ;
         if (file) {         
           // var imageUrl = URL.createObjectURL(file);           
           // setBanner(imageUrl);  
           UploadFile(file)
           .then((downloadURL) => {
-            console.log("Download URL:", downloadURL);
+            // console.log("Download URL:", downloadURL);
             setBanner(downloadURL)
            })
           .catch((error) => {
-            console.error("Error:", error);
+            // console.error("Error:", error);
              });   
       }
   }
-  console.log("banner",banner)
-  console.log("profile photo",Photo);
+  // console.log("banner",banner)
+  // console.log("profile photo",Photo);
 
   
   const ProfileUpdateHandler = ()=>{
@@ -165,9 +165,9 @@ const EditDataSetHandler = ()=>{
                  linkedin:linkedin
                 },
      }
-    console.log("data",data);
+    // console.log("data",data);
     updateUserProfileHandler("POST",data).then(response=>{
-      console.log("response",response);
+      // console.log("response",response);
         if(response.isSuccess){
            handleModalClose();
            handleData();

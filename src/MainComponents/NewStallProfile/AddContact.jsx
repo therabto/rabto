@@ -18,7 +18,7 @@ const AddContact = ({ name   , phoneNo , website  }) => {
           email:""
         };
 
-        console.log("contact",contact);
+        // console.log("contact",contact);
         
     
         // Create vCard content

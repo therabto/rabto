@@ -8,9 +8,6 @@ import Footer from '../../MainComponents/Footer/Footer';
 import { getServiceorproductforEventHandler } from '../../APIS/APIs';
 import { useParams } from "react-router-dom";
 
-
-
-
 const ProductorService = () => {
   const [serviceorproduct,setServiceOrProduct] = useState('');
     const navigate = useNavigate();
@@ -22,7 +19,7 @@ const ProductorService = () => {
 
   const GetServicesOrProductsByID = async ()=>{
       getServiceorproductforEventHandler(id).then(result=>{
-         console.log("result",result);
+        //  console.log("result",result);
          setServiceOrProduct(result.data);
       })
     }
@@ -30,6 +27,7 @@ const ProductorService = () => {
     const goBack = () => {
       navigate(-1); 
     };
+    
   return (
     <Fragment>
       <div className="border max-w-[400px] lg:max-w-[400px] m-auto realtive ">
