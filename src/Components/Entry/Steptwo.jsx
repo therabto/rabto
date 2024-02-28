@@ -30,11 +30,11 @@ function validateCompanyName(companyName) {
         mobileNo
      }
      handleStep(true,data)
-      console.log("Validation successful");
+      // console.log("Validation successful");
       setError("");
   } else {
      
-      console.log("Validation failed");
+      // console.log("Validation failed");
       setError("Please Fill the Details Correctly");
   }
     

@@ -32,7 +32,7 @@ useEffect(()=>{
 
 
 const HandleStep1 = (action,data)=>{
-   console.log("action",action,data);
+   // console.log("action",action,data);
              if(action === true){
                const uniqueUsername = createRandomUsername(data.userName )
                setVisitorDetails((prev) => ({ ...prev, email: data.email, displayName: data.userName ,profilePhoto:data.profilePhoto ,userName:uniqueUsername }));
@@ -61,9 +61,6 @@ const HandleStep2 = (action,data)=>{
 
 const AuthHandler = async ()=>{
         let data = visitorDetails ;
-
-      
-
          let User = await UserCreateHandler("POST",data);
          // console.log("User Create ",User);
          if(User.isSuccess){

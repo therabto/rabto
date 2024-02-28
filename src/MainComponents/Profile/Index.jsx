@@ -72,7 +72,7 @@ const Index = () => {
 
 const getUserProfile = async()=>{
      GetuserProfile(profileUserName).then(response=>{
-     console.log("response",response);
+   //   console.log("response",response);
      if(response.isSuccess){
         setUserData(response.data);
      }
@@ -96,16 +96,16 @@ const callPhoneNumber = (phoneNumber) => {
 
 const serviceHandler = ()=>{
    GetuserServiceHandler(userData?._id).then(response=>{
-       console.log("reponse service",response)
+      //  console.log("reponse service",response)
        setServices(response.data);
 
    })
   }
-  console.log("user profile data ", userData)
+//   console.log("user profile data ", userData)
 
   const productHandler = ()=>{
    GetuserProductHandler(userData?._id).then(response=>{
-       console.log("reponse Product",response)
+      //  console.log("reponse Product",response)
        setProducts(response.data);
 
    })
@@ -113,7 +113,7 @@ const serviceHandler = ()=>{
 
   const getEventHandler = ()=>{
    GetuserEventHandler(userData?._id).then(response=>{
-         console.log("reponse event",response)
+         // console.log("reponse event",response)
          setEvents(response.data);
   
      })
@@ -136,9 +136,9 @@ const LinkAdjustmentsHandler = (link)=>{
       {/* Aside Start */}
          
       <div className={` max-w-[600px] lg:max-w-[400px]  md:flex`}>
-          <div className={`absolute ld:static top-0 left-0 bottom-0 right-0 bg-[#000000] opacity-[37%] transition-all duration-300 ease-in-out   z-40 ${isAsideOpen ? "w-full lg:w-full" : "w-0"}`} onClick={handleAside}></div>
-          <div className={`absolute ld:static h-[100vh]  top-0 bottom-0 left-0 z-50 lg:z-50 rounded-r-[50px]  bg-white   transition-all duration-500 w-[300px] ease-in-out ${isAsideOpen ? " ml-0  md:w-[300px]" : "md:w-[0px] md:ml-0 -ml-[300px] "}`}>
-           <div className={`${isAsideOpen ? "  md:block " : "md:hidden"}`}>
+          <div className={`absolute ld:static h-[100vh] top-0 left-0 bottom-0 right-0 bg-[#000000] opacity-[37%] transition-all  duration-300 ease-in-out   z-40 ${isAsideOpen ? "w-full lg:w-full" : "w-0"}`} onClick={handleAside}></div>
+          <div className={`absolute ld:static h-[100vh]  top-0 bottom-0 left-0 z-50 lg:z-50 rounded-r-[50px]  bg-white    transition-all duration-500 w-[300px] ease-in-out ${isAsideOpen ? " ml-0  md:w-[300px]" : "md:w-[0px] md:ml-0 -ml-[300px] "}`}>
+           <div className={`${isAsideOpen ? "  md:block " : "  md:hidden"}`}>
            <Aside userData={userData} />
            </div>
           </div>
@@ -151,7 +151,7 @@ const LinkAdjustmentsHandler = (link)=>{
     <div className=' w-[100%] lg:max-w-[400px] fixed z-10 ' >
       <div className='w-[100%] h-[210px] '>
         <img src={userData?.banner} alt="Profile GIF" className=' w-[100%] h-[210px] ' />
-        {USER_NAME === profileUserName ?<div className='bg-white w-[40px] h-[40px] cursor-pointer rounded-[5px] absolute top-2 pt-1 shadow-lg shadow-[#0E1E25]  left-2'><RiMenu4Fill className='  text-black m-auto  font-bold text-[30px]' onClick={handleAside} /></div>  : null }
+        {/* {USER_NAME === profileUserName ?<div className='bg-white w-[40px] h-[40px] cursor-pointer rounded-[5px] absolute top-2 pt-1 shadow-lg shadow-[#0E1E25]  left-2'><RiMenu4Fill className='  text-black m-auto  font-bold text-[30px]' onClick={handleAside} /></div>  : null } */}
         </div>
     </div>
     
@@ -172,7 +172,7 @@ const LinkAdjustmentsHandler = (link)=>{
         <div className={`${isAtTop ? "rounded-none" : "rounded-t-[40px]" } bg-[#F4F4F4] transition-all duration-300 `}>
          <div className=' relative m-auto  -top-[60px] w-[100px] h-[100px] rounded-full bg-[#F4F4F4] ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
               <img src={userData?.profilePhoto} className='w-[100px] h-[100px] object-cover rounded-full bg-[#F4F4F4]' />
-              {/* <div className='relative -top-[30px] left-[105px]'><SaveContact name={userData?.displayName} phoneNo={userData?.mobileNo} /></div> */}
+              <div className='relative -top-[30px] left-[105px]'><SaveContact name={userData?.displayName} phoneNo={userData?.mobileNo} /></div>
         </div>
         
         <div className='relative -top-[40px] '>

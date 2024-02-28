@@ -2,57 +2,8 @@ import React from 'react';
 import * as XLSX from 'xlsx';
 
 const ExportTOFullExcel = ({data}) => {
-    console.log("data",data);
-  const exportToExcel = (datalist) => {
-    const data = [
-        {
-          BookMark: "",
-          EventID: "65b929047fbec74c0d978b7f",
-          Lead: "",
-          StallID: "65bafe7760eb8f99adc837bb",
-          VisitorsID: "65bc854bad8d5b4cab25a6b5",
-          visitorCompanyName: "",
-          visitorEmailID: "diwakarroxz@gmail.com",
-          visitorMobileNumber: "",
-          visitorName: "Diwa Diwakar",
-          __v: 0,
-          _id: "65bd2e19ad8d5b4cab25bcd6"
-        },
-        {
-            BookMark: "",
-            EventID: "65b929047fbec74c0d978b7f",
-            Lead: "",
-            StallID: "65bafe7760eb8f99adc837bb",
-            VisitorsID: "65bc854bad8d5b4cab25a6b5",
-            visitorCompanyName: "",
-            visitorEmailID: "diwakarroxz@gmail.com",
-            visitorMobileNumber: "",
-            visitorName: "Diwa Diwakar",
-            __v: 0,
-            _id: "65bd2e19ad8d5b4cab25bcd6"
-          },
-          {
-            BookMark: "",
-            EventID: "65b929047fbec74c0d978b7f",
-            Lead: "",
-            StallID: "65bafe7760eb8f99adc837bb",
-            VisitorsID: "65bc854bad8d5b4cab25a6b5",
-            visitorCompanyName: "",
-            visitorEmailID: "diwakarroxz@gmail.com",
-            visitorMobileNumber: "",
-            visitorName: "Diwa Diwakar",
-            __v: 0,
-            _id: "65bd2e19ad8d5b4cab25bcd6"
-          },
-      ];
-      const extractedData = datalist.map(item => ({
-        visitorName: item.visitorName,
-        visitorMobileNumber: item.visitorMobileNumber,
-        visitorEmailID: item.visitorEmailID,
-        visitorCompanyName: item.visitorCompanyName,
-        Lead: item.Lead
-      }))
-   
+    // console.log("data",data);
+  const exportToExcel = (datalist) => {      
     const worksheet = XLSX.utils.json_to_sheet(datalist);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');

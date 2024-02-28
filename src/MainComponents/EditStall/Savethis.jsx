@@ -44,7 +44,7 @@ const Profile = ({ USER_NAME }) => {
   const handlePrint = () => {
     window.print();
   };
-console.log("cover image",coverImage);
+// console.log("cover image",coverImage);
 
   const handleModalClose = ()=>{
     setShowModal1(false);
@@ -59,12 +59,12 @@ console.log("cover image",coverImage);
          UploadFile(file)
             .then((downloadURL) => {
             // Access the download URL here
-              console.log("Download URL:", downloadURL);
+              // console.log("Download URL:", downloadURL);
               setCoverImage(downloadURL)
              })
             .catch((error) => {
              // Handle any errors that occurred during the upload or obtaining the download URL
-              console.error("Error:", error);
+              // console.error("Error:", error);
                });
 
 
@@ -78,11 +78,11 @@ console.log("cover image",coverImage);
          setPhoto(imageurl);
          UploadFile(file)
             .then((downloadURL) => {
-              console.log("Download URL:", downloadURL);
+              // console.log("Download URL:", downloadURL);
               setPhoto(downloadURL)
              })
             .catch((error) => {
-              console.error("Error:", error);
+              // console.error("Error:", error);
                });
 
 
@@ -95,11 +95,11 @@ console.log("cover image",coverImage);
     if(file){
          UploadFile(file)
             .then((downloadURL) => {
-              console.log("Download URL:", downloadURL);
+              // console.log("Download URL:", downloadURL);
               setEBrochure(downloadURL)
              })
             .catch((error) => {
-              console.error("Error:", error);
+              // console.error("Error:", error);
                });
 
 
@@ -118,7 +118,7 @@ console.log("cover image",coverImage);
  
  const getStallHandler = ()=>{
   GetuserStallHandler().then(response=>{
-        console.log("reponse event",response)
+        // console.log("reponse event",response)
         setStallProfile(response.data);
  
     })
@@ -126,12 +126,12 @@ console.log("cover image",coverImage);
 
   const GetAllProductOrServices = async ()=>{
     GetuserServiceOrProductForStallHandler().then(res=>{
-      console.log("response all products",res);
+      // console.log("response all products",res);
       setallserviceproduct(res.profileServices);
     })
   }
 
-  console.log("profileServices",allserviceproduct)
+  // console.log("profileServices",allserviceproduct)
 
   const GetStallProductOrServicesHandler = async ()=>{
     if(stallProfile){
@@ -140,7 +140,7 @@ console.log("cover image",coverImage);
                 }
                 getStallServiesORProductsHandler("POST",data).then(res=>{
                   setstallserviceproduct(res.profileServices);
-                  console.log(" stall products response",res)
+                  // console.log(" stall products response",res)
               })
     }
   }
@@ -180,7 +180,7 @@ console.log("cover image",coverImage);
     }
     if(action === "CREATE"){
     CreateStallHandler("POST",data).then(response=>{
-        console.log("response",response);
+        // console.log("response",response);
         if(response.isSuccess){ 
         getStallHandler();
         handleModalClose()
@@ -188,10 +188,10 @@ console.log("cover image",coverImage);
     })
     }
     else if(action === "UPDATE"){
-         console.log("update handler!!")
+        //  console.log("update handler!!")
          data.stallid = stallProfile._id ;
     UpdateStallHandler("POST",data).then(response=>{
-             console.log("response",response);
+            //  console.log("response",response);
              if(response.isSuccess){ 
               getStallHandler();
               handleModalClose();
@@ -206,7 +206,7 @@ console.log("cover image",coverImage);
  
    const DeleteHandler = (item)=>{
     DeleteStallHandler("DELETE",{eventid:item._id}).then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        if(response.isSuccess){ 
         getStallHandler();
         handleModalClose();
@@ -228,7 +228,7 @@ console.log("cover image",coverImage);
    }
  
    const handleEdit = (data)=>{
-    console.log("data",data);
+    // console.log("data",data);
     setIsEdit(true);
     setShowModal1(true);
     setDisplayName(data.name);
@@ -242,8 +242,8 @@ console.log("cover image",coverImage);
    }
 
   
-console.log("ebrochre",ebrochure)
-console.log("stall profile",stallProfile)
+// console.log("ebrochre",ebrochure)
+// console.log("stall profile",stallProfile)
 
   
 

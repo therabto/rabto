@@ -6,11 +6,11 @@ const SetVisitorStalluserDetailsHandler = () => {
 
     useEffect(() => {
         setRenderCount(prevCount => prevCount + 1);
-        console.log("Component rendered", renderCount, "times");
+        // console.log("Component rendered", renderCount, "times");
 
         if (stallid && userid && Event_ID) {
             setExecutionCount(prevCount => prevCount + 1);
-            console.log("Function executed", executionCount, "times");
+            // console.log("Function executed", executionCount, "times");
             
             let data = {
                 visitorid: userid,
@@ -22,14 +22,14 @@ const SetVisitorStalluserDetailsHandler = () => {
                 emailid: currentuser.email
             };
 
-            console.log("Data for checking", data);
+            // console.log("Data for checking", data);
 
             ScannedVisitorStallCreate("POST", data).then(response => {
-                console.log('Response visitor stall created', response);
+                // console.log('Response visitor stall created', response);
             });
 
             ScannedUserStallCreate("POST", data).then(response => {
-                console.log('Response user stall created', response);
+                // console.log('Response user stall created', response);
             });
         }
     }, [stallid, userid, Event_ID, currentuser]);

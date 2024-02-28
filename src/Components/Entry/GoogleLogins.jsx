@@ -18,7 +18,7 @@ const GoogleLogins = ({handleStep}) => {
 const responseGoogle = async (response)=>{
   const responsePayload = jwtDecode(response.credential);
   const {email,name,sub,email_verified ,picture }=responsePayload;
-  console.log("response",responsePayload);
+  // console.log("response",responsePayload);
   const data = {email:email,
               displayName:name,  
               profilePhoto:picture,
@@ -37,7 +37,8 @@ const responseGoogle = async (response)=>{
           Cookies.set('mycookie', token, {expires , sameSite: 'none', secure: true }); 
           setTimeout(()=>{
              handleStep(false);     
-             navigate("/dashboard");
+            
+             window.location.reload();
             //  window.location.href = AfterLoginRedirectURL;             
           },1000)
         
@@ -58,12 +59,11 @@ const responseGoogle = async (response)=>{
         <GoogleLogin
         onSuccess={responseGoogle}
         onError={() => {
-                       console.log('Login Failed');
+                      //  console.log('Login Failed');
                       }}             
         />
       </GoogleOAuthProvider>
       </div>
-
   )
 }
 

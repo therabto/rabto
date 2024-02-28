@@ -5,6 +5,8 @@ import{jwtDecode} from "jwt-decode" ;
 // export const AfterLoginRedirectURL = `http://localhost:3000/dashboard`;
 
 // const BASE_URL = `http://localhost:8080`;
+const BASE_URL = `https://rabto-itf2.onrender.com`;
+// const BASE_URL = `http://localhost:8080`;
 const BASE_URL = `https://rabto-itf2.onrender.com`
 // const BASE_URL = `https://rabto.onrender.com`;
 export const Event_ID = "65b929047fbec74c0d978b7f"; 
@@ -14,7 +16,7 @@ let responsePayload = "";
 let userID = "";
 if(cookie){
 responsePayload = jwtDecode(cookie);
-console.log("response Payload ",responsePayload);
+// console.log("response Payload ",responsePayload);
 userID = responsePayload.id ;
 }
 export let userid = responsePayload.id ;
@@ -56,14 +58,13 @@ if (userID) {
         // console.error("Error fetching user name:", error);
       }
     };
-  
     // Call the function
     userName = await fetchUserName();
   } 
   
-console.log("Access",userName);
+// console.log("Access",userName);
 export let USER_NAME= userName ;
-console.log("userName",userName);
+// console.log("userName",userName);
 // export const AfterLoginRedirectURL = `https://app.rabto.in/dashboard`;
 export const AfterLoginRedirectURL = `http://localhost:3000/profile/${responsePayload.userName}`;
 
@@ -98,12 +99,10 @@ export const checkCookieHandler = (action,data)=>{
     return output ;
 }
 
-
 export const GetuserProfile = async (userName)=>{
     let output = fetch(`${BASE_URL}/api/user/get-a-user/${userName}`,{method:"GET"}).then(res=>res.json())
     return output ;
 }
-
 
 export const updateUserProfileHandler = (action,data)=>{
     options.method = action ;
@@ -152,7 +151,6 @@ export const GetuserProductHandler = (userID)=>{
   return output ;
  }
 
-
  export const CreateEventHandler = (action,data)=>{
   options.method = action ;
   data.cookie = cookie ;
@@ -186,9 +184,8 @@ export const GetuserEventHandler = (userID)=>{
  return output ;
 }
 
-
 export const CreateStallHandler = (action,data)=>{
-  console.log("data",data);
+  // console.log("data",data);
 
   options.method = action ;
   data.cookie = cookie ;
@@ -269,7 +266,7 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
  export const ScannedVisitorStallCreate = (action , data)=>{ 
   options.method = action ;
   data.cookie = cookie ;
-   console.log("data",data);
+  //  console.log("data",data);
   options.body = JSON.stringify(data);
   let output = fetch(`${BASE_URL}/api/visitors/create-visitor-user`,options).then(res=>res.json());
   return output ;
@@ -279,8 +276,8 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
   options.method = action ;
   data.cookie = cookie ;
   options.body = JSON.stringify(data);
-  console.log("data",data);
-  console.log("options",options);
+  // console.log("data",data);
+  // console.log("options",options);
   let output = fetch(`${BASE_URL}/api/stalluser/create-stall-user`,options).then(res=>res.json());
   return output ;
  }
@@ -335,8 +332,21 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
   let output = fetch(`${BASE_URL}/api/user/get-user-qr`,{method:"GET"}).then(res=>res.json());
   return output ;
  }
- 
 
 
+//  Proxy Part Start
 
+export const handleFoodForUser = (userID , meal)=>{
+  let output = fetch(`${BASE_URL}/api/proxy/Food/${userID}/${meal}`,{method:"GET"}).then(res=>res.json());
+  return output ;
+}
 
+export const handleHallForUser = (userID , hall)=>{
+  let output = fetch(`${BASE_URL}/api/proxy/Hall/${userID}/${hall}`,{method:"GET"}).then(res=>res.json());
+  return output ;  
+}
+
+export const handleGiftForUser = (userID , gift)=>{
+  let output = fetch(`${BASE_URL}/api/proxy/Gift/${userID}`,{method:"GET"}).then(res=>res.json());
+  return output ;         
+}

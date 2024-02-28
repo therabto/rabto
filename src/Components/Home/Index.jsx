@@ -39,7 +39,7 @@ const previewStyle = {
 }
 
 const Index = () => {
-  console.log("users details",user)
+  // console.log("users details",user)
 
    const [isSearch,setIsSearch] = useState(false);
    const [query,setQuery] = useState('');
@@ -49,6 +49,7 @@ const Index = () => {
    const [stalls,setStalls] = useState([]);
    const [filterStalls,setFilterStalls] = useState([]);
    const [visitorEventdata,setVisitorEventData] = useState('');
+   const [recentvisits,setRecentVisits] = useState([]);
    const navigate = useNavigate();
    const [filter,setFilter] = useState({
         query:"",
@@ -76,23 +77,15 @@ const Index = () => {
     }
     GetVisitorDetailsForEventsHandler("POST",data).then(response=>{
       setVisitorEventData(response.data);
-      console.log("response",response);
+      setRecentVisits(response.data.RecentVisits);
+      // console.log("response vistoe event response",response);
     })
    }
+  //  console.log("Recent stall Visits",recentvisits);
 
 
-   const handleScan = (data)=>{
-    console.log("result",data);
-    if(data){
-      if(data.text){
-      setIsScanOpen(false);
-      window.open(data.text, '_blank');
-      }
-    }
-   }
-   const handleError=(err)=>{
-     console.error(err)
-   }
+   
+   
 
    const switchCamera = () => {
     // console.log("swith camer",facingMode);
@@ -100,35 +93,24 @@ const Index = () => {
     prevFacingMode === 'front' ? 'rear' : 'front'
     );
   };
-  
-  const onNewScanResult = (decodedText, decodedResult) => {
-    // handle decoded results here
-    console.log("decodedtext and decodedResult",decodedText ,decodedResult)
-    const lastPart = decodedText.substring(decodedText.lastIndexOf('/') + 1);
-    console.log("last part",lastPart);
-    navigate(`/stall/${lastPart}`)
-    setIsScanOpen(false);
-    // window.open(decodedText, '_blank');
-
-  };
-
-  const qrCodeErrorCallback = (errorMessage) => {
-    console.error("Error while scanning QR Code: ", errorMessage);
-    // You can handle the error here
-    // For example, you might want to display an error message to the user
-};
-
-function isIDPresent(idToCheck, array) {
-  return array.some(id => id === idToCheck);
+ 
+function filterArrayInVisitOrder(filteredArray, recentVisit) {
+  const resultArray = [];
+  recentVisit.forEach(id => {
+      const foundObject = filteredArray.find(obj => obj._id === id);
+      if (foundObject) {
+          resultArray.push(foundObject);
+      }
+  });
+  return resultArray;
 }
 
-const lastThreeElements = visitorEventdata?.StallID &&  visitorEventdata?.StallID.slice(-3);
-console.log("last three Elements" , lastThreeElements);
 let filteredArray = [];
-if(stalls?.length > 0 && lastThreeElements?.length > 0){
- filteredArray = stalls?.length > 0 && lastThreeElements.length > 0 &&    stalls.filter(item => lastThreeElements.includes(item._id));
+if(stalls?.length > 0 && recentvisits?.length > 0){
+ filteredArray = stalls?.length > 0 && recentvisits.length > 0 &&    stalls.filter(item => recentvisits.includes(item._id));
+ filteredArray =filterArrayInVisitOrder(filteredArray , recentvisits);
 }
-console.log("filterarray",filteredArray);
+// console.log("filterarray",filteredArray);
 
 const QueryOnChangeHandler = (e)=>{
   setFilter(prev => ({ ...prev, query: e.target.value }));
@@ -136,10 +118,10 @@ const QueryOnChangeHandler = (e)=>{
 
 const filterStallHandler = () => {
   let filterdata = stalls; // Assuming stalls is your original array
-   console.log("filter data",filterdata);
+  //  console.log("filter data",filterdata);
   if (filterdata.length > 0) {
     if (filter.query) {
-      console.log("query", filter.query);
+      // console.log("query", filter.query);
       filterdata = filterdata.filter(item => item.name.toLowerCase().includes(filter.query.toLowerCase()));
     }      
     // if (filter.category) {
@@ -237,9 +219,9 @@ return (
             filteredArray?.length > 0 ? filteredArray.map(item=>
               <Link to={`/stall/${item._id}`} className='flex items-center w-[100%] flex-col'>
               <div className="grid mx-5 grid-cols-7 gap-1 w-[100%]  p-2">
-               <div className='text-start flex items-center col-span-5 text-[#162449] text-[14px] gilroyBold' style={{fontWeight:700}}>{item.name}</div>
+               <div className='text-start flex items-center col-span-6 text-[#162449] text-[14px] gilroyBold' style={{fontWeight:700}}>{item.name}</div>
                <div className='text-start col-span-1 flex items-center text-[#000000] text-[14px] gilroyMedium' style={{fontWeight:400}}>{item.stallNo}</div>
-               <div className='text-start col-span-1 flex items-center'><img src={c1} alt="category image" className='w-[30px] h-[30px]' /></div>
+               {/* <div className='text-start col-span-1 flex items-center'><img src={c1} alt="category image" className='w-[30px] h-[30px]' /></div> */}
               </div>
               <div className='border divide-y-[1px] w-[100%] border-[#EAEAEA]'></div>
  
@@ -387,18 +369,18 @@ return (
                           <img src={item.coverimage} className='w-[35px] h-[35px] rounded-full' />
                           </div>
                         </div>
-                        <div className="col-span-3 ">
+                        <div className="col-span-4 ">
                           <div className="flex flex-col">
                             <div className="gilroyBold text-[16px] text-left">{item.name}</div>
                             {/* <div className="gilroyLight text-[14px] text-left">{item.description}</div> */}
                           </div>
                         </div>
                         <div className="col-span-1 m-auto gilroyBold">{item.stallNo}</div>
-                        <div className="col-span-1 m-auto">
+                        {/* <div className="col-span-1 m-auto">
                         <div className='w-[35px] h-[35px] rounded-full'>
                           <img src={c1} className='w-[35px] h-[35px] rounded-full ' />
                           </div>
-                        </div>
+                        </div> */}
                      </div>
                      {/* <div onClick={()=>setIsAlert(true)} className='p-4 mt-3 relative grid grid-cols-6 gap-[10px] shadow-md shadow-[#00000008] rounded-[16px]' >
                      {false ? <Link to="/stallprofile" className='absolute bg-transparent top-0 bottom-0 left-0 right-0 rounded-[16px] opacity-5'></Link> : null }

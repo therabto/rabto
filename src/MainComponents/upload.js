@@ -2,7 +2,7 @@ import { getStorage, ref, uploadBytes ,getDownloadURL , uploadBytesResumable , }
 import {app , db} from '../Config/Firebase';
 
 export const UploadFile = (file) => {
-    console.log("file", file);
+    console.log("file upload file", file);
     const storage = getStorage(app);
     const filename = new Date().getTime() + file.name;
     const storageRef = ref(storage, filename);

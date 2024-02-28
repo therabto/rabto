@@ -51,13 +51,12 @@ const Links = ({ USER_NAME ,userData }) => {
          setCoverImage(imageurl);
          UploadFile(file)
             .then((downloadURL) => {
-              console.log("Download URL:", downloadURL);
+              // console.log("Download URL:", downloadURL);
               setCoverImage(downloadURL)
              })
             .catch((error) => {
-              console.error("Error:", error);
+              // console.error("Error:", error);
                });
-
     }
   }
 
@@ -68,17 +67,15 @@ const Links = ({ USER_NAME ,userData }) => {
 
 const serviceHandler = ()=>{
    GetuserServiceHandler(userData?._id).then(response=>{
-       console.log("reponse service",response)
+      //  console.log("reponse service",response)
        setServices(response.data);
-
    })
   }
 
   const productHandler = ()=>{
    GetuserProductHandler(userData?._id).then(response=>{
-       console.log("reponse Product",response)
+      //  console.log("reponse Product",response)
        setProducts(response.data);
-
    })
   }
 
@@ -91,41 +88,37 @@ const serviceHandler = ()=>{
       coverimage:coverImage,
       userName:USER_NAME
    }
-    console.log("data",data);
+    // console.log("data",data);
    if(action === "CREATE"){
     NewServiedeorProduct("POST",data).then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        if(response.isSuccess){
         //  serviceHandler();
         //   productHandler();
           handleModalClose();
         //   AfterUpdateHandler();
-
        }
    })
    }
    else if(action === "UPDATE"){
-        console.log("update handler!!")
+        // console.log("update handler!!")
          data.UserID = userid ;
          data.servicesid = serviceid;
    UpdateServiceOrProductHandler("POST",data).then(response=>{
-            console.log("response",response);
+            // console.log("response",response);
             if(response.isSuccess){
                serviceHandler();
                 productHandler();
                 handleModalClose();
                AfterUpdateHandler();
-
              }
-
         })
    }
-
   }
 
   const DeleteHandler = (item)=>{
    DeleteServiceOrProductHandler("DELETE",{serviceid:item._id}).then(response=>{
-      console.log("response",response);
+      // console.log("response",response);
       if(response.isSuccess){
          serviceHandler();
           productHandler();
@@ -147,7 +140,7 @@ const serviceHandler = ()=>{
   }
 
   const handleEdit = (data)=>{
-   console.log("data",data);
+  //  console.log("data",data);
    setIsEdit(true);
    setShowModal1(true);
    setCoverImage(data.coverimage);

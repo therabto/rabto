@@ -30,7 +30,7 @@ const Events = ({USER_NAME ,userData}) => {
  
  const getEventHandler = ()=>{
   GetuserEventHandler(userData._id).then(response=>{
-        console.log("reponse event",response)
+        // console.log("reponse event",response)
         setEvents(response.data);
  
     })
@@ -45,7 +45,7 @@ const Events = ({USER_NAME ,userData}) => {
     }
     if(action === "CREATE"){
     CreateEventHandler("POST",data).then(response=>{
-        console.log("response",response);
+        // console.log("response",response);
         if(response.isSuccess){ 
         getEventHandler();
         handleModalClose()
@@ -53,11 +53,11 @@ const Events = ({USER_NAME ,userData}) => {
     })
     }
     else if(action === "UPDATE"){
-         console.log("update handler!!")
+        //  console.log("update handler!!")
           data.UserID = userid ;
           data.eventid = eventid;
     UpdateEventHandler("POST",data).then(response=>{
-             console.log("response",response);
+            //  console.log("response",response);
              if(response.isSuccess){ 
               getEventHandler();
               handleModalClose();
@@ -72,7 +72,7 @@ const Events = ({USER_NAME ,userData}) => {
  
    const DeleteHandler = (item)=>{
     DeleteEventHandler("DELETE",{eventid:item._id}).then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        if(response.isSuccess){ 
         getEventHandler();
         handleModalClose();
@@ -90,7 +90,7 @@ const Events = ({USER_NAME ,userData}) => {
    }
  
    const handleEdit = (data)=>{
-    console.log("data",data);
+    // console.log("data",data);
     setIsEdit(true);
     setShowModel1(true);
     setName(data.name);
