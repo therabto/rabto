@@ -18,7 +18,7 @@ let responsePayload ;
 
 const asideArray = [
     { path:"userdashboard",Name:"Dashboard" },
-    { path:"editprofile",Name:"Edit Profile" },
+    { path:"editprofile/PROFILE",Name:"Edit Profile" },
     { path:"editstall",Name:"Edit Stall" },
     { path:"dashboard",Name:"Live Events" },
     ]
@@ -77,7 +77,7 @@ const getUserProfile = async()=>{
               <div className=' relative  w-[50px] h-[50px] rounded-full ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
               <img src={userData?.profilePhoto} className='w-[50px] h-[50px]  rounded-full' />
               </div>
-              <div className='gilroyBold text-[24px] text-[#000000] ml-4'>{userData?.displayName}</div>
+              <div className='gilroyBold text-[24px] text-[#000000] ml-4'>{userData?.displayName?.substring(0,10)}{userData?.displayName?.length > 10  ? null : ".."}</div>
               <BsShieldFillCheck className='text-[#2F80ED]' />
               </Link>
 
@@ -93,7 +93,7 @@ const getUserProfile = async()=>{
                      
                      <div className='my-auto'>
                      {menu.path === "userdashboard" ? <MdOutlineDashboard className=' my-auto text-2xl ' /> : null }
-                     {menu.path === "editprofile" ? <FaUserPen className=' my-auto text-2xl ' /> : null }
+                     {menu.path === "editprofile/PROFILE" ? <FaUserPen className=' my-auto text-2xl ' /> : null }
                      {menu.path === "editstall" ? <MdStorefront className=' my-auto text-2xl ' /> : null }
                      {menu.path === "dashboard" ? <span class="relative flex h-3 w-3">
                                                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52D22E] opacity-75"></span>

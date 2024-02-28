@@ -42,7 +42,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
 import { IoMdCall } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
-import { IoMenu } from "react-icons/io5";
+import { IoArrowBack, IoMenu } from "react-icons/io5";
 import { Swiper , SwiperSlide} from "swiper/react";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { Navigation  } from "swiper/modules";
@@ -61,11 +61,12 @@ import eventLogo from "../../Assets/event_logo.png";
 import sp from "../../Assets/Visitors/sp.png";
 import sp1 from "../../Assets/Visitors/sp1.png";
 import liveevent from "../../Assets/liveevent.png";
+import Cookies from "js-cookie";
 
 import "swiper/css";
 import "swiper/css/navigation"
 import Aside from '../Profile/Aside';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams , useNavigate } from 'react-router-dom';
 import Error404 from '../../Components/PageNotFound/Error404';
 // import Footer from '../Footer/Footer';
 import user from "../../APIS/CurrentUser";
@@ -156,6 +157,8 @@ const Index = () => {
         
        setIsAsideOpen(!isAsideOpen);
     }
+
+    let navigate = useNavigate();
   
     let { profileUserName } = useParams();
     // console.log("profile name",profileUserName);
@@ -296,6 +299,8 @@ const Index = () => {
     const handleVideoError = () => {
         setvideoError(true)
     } 
+
+    const cookie = Cookies.get("mycookie");
     
     return(
         <Fragment>
@@ -317,7 +322,22 @@ const Index = () => {
        </div>
 
         <div style={{maxWidth: "768px", margin: "0 auto",position:"relative"}}>
-        {USER_NAME === profileUserName ?<div className='bg-white w-[40px] h-[40px] cursor-pointer rounded-[5px] z-30 absolute top-2 pt-1 shadow-lg shadow-[#0E1E25]  left-2'><RiMenu4Fill className='  text-black m-auto  font-bold text-[30px]' onClick={handleAside} /></div>  : null }
+        {USER_NAME === profileUserName ?<div className='bg-white w-[40px] h-[40px] cursor-pointer rounded-[5px] z-30 absolute top-2 pt-1 shadow-lg shadow-[#0E1E25]  left-2'><RiMenu4Fill className='  text-black m-auto  font-bold text-[30px]' onClick={handleAside} /></div>  : 
+          <Fragment>
+             {cookie ? 
+             <div className='absolute top-5 z-30 left-5'>
+             <div onClick={()=>navigate(-1)} className='w-[30px] h-[30px] rounded-full flex items-center justify-center font-extrabold bg-white' style={{boxShadow: "0px 2px 7px 1px #1624494D"}}>
+                 <IoArrowBack className='text-[20px] active:text-[18px]'/>
+             </div> 
+            </div>
+            :
+            <div className='absolute top-5 z-30 right-5'>
+            <div><Link to="/" className=" bg-[#90E072] text-[white] shadow-sm shadow-[#90E072] py-1 px-2 text-[12px] flex items-center justify-center rounded-[2px]">Login</Link></div>
+            </div>
+            }
+          </Fragment>
+          
+        }
 
             <div className="top-cont ">  
               <img src={userData?.banner} style={{width: "100%"}}  />
@@ -328,7 +348,7 @@ const Index = () => {
                         <img src={scan} style={{width: "25px", height: "25px"}} />
                     </div>
                 </Popover> */}
-                <div className="prof ">
+                <div className="prof bg-white  ">
                 <img className="prof-img" src={userData?.profilePhoto} />
                 {/* <div style={{alignSelf: "end", marginTop: "-40px",}} className="save-btn">
                 <a href="intent://contacts/create?name=Surendhar%20Doe&phone=9845318077#Intent;scheme=android.intent.action.INSERT;end">
@@ -338,7 +358,7 @@ const Index = () => {
                 </div> */}
                 <div>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} className="mt-3">
-                        <h2 className="MontserratEBold">{userData?.displayName}</h2>
+                        <h2 className="MontserratEBold">{userData?.displayName?.substring(0,10)}{userData?.displayName?.length > 10  ? "..." : null}</h2>
                         <img
                         style={{
                             height:23,
@@ -353,13 +373,13 @@ const Index = () => {
                         </Tooltip>
                     </div>
                     <div>
-                        <h4 className="GilroyBoldT" style={{textAlign: "center", padding: "5px 10px", color: "#3E4152", marginTop: "0"}}>{userData.About}</h4>
+                        <h4 className="GilroyBoldT" style={{textAlign: "center", padding: "5px 10px", color: "#3E4152", marginTop: "0"}}>{userData?.About?.substring(0, 85)}{userData?.About?.length > 85  ? "..." : null }</h4>
                     </div>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginBottom: "20px", gap: "20px"}}>
-                    {userData?.whatsapp ? <a  href={`https://wa.me/91${userData?.whatsapp}`}
+                    {/* {userData?.whatsapp ? <a  href={`https://wa.me/91${userData?.whatsapp}`}
            target="_blank"
            rel="noopener noreferrer"
-           ><FaWhatsapp className='text-[21px] text-[#162449]'/> </a> :null}
+           ><FaWhatsapp className='text-[21px] text-[#162449]'/> </a> :null} */}
            {userData?.socialMedia?.instagram && userData?.socialMedia?.instagram.trim()  ?<a href={`${LinkAdjustmentsHandler(userData?.socialMedia?.instagram)}`} target='_blank'><img src={InstagramIcon} className='text-[21px] text-[#162449] busernameSocialIcon'/> </a> :null}
            {userData?.socialMedia?.facebook && userData?.socialMedia?.facebook.trim()  ?<a href={`${LinkAdjustmentsHandler(userData?.socialMedia?.facebook)}`} target='_blank'><img src={FaceBookIcon} className='text-[21px] text-[#162449] busernameSocialIcon' /></a>:null}
            {userData?.socialMedia?.linkedin  && userData?.socialMedia?.linkedin.trim()  ?<a href={`${LinkAdjustmentsHandler(userData?.socialMedia?.linkedin)}`} target='_blank'><img src={LinkedInIcon} className='text-[21px] text-[#162449] busernameSocialIcon'/></a>:null}
@@ -374,10 +394,10 @@ const Index = () => {
                     </div>
                 </div>
                 </div>
-                <div style={{backgroundColor: "#ffffff"}}>
-                    <div className="btn-cont">
-                    {/* <a style={{textDecoration: "none"}} href={`tel://9845318077`}><button className="phone-btn NeuExBlack"><img src={call} style={{width: "13px"}} /><span style={{marginBottom: "0px"}}>Call</span></button></a> */}
-                    {/* <a style={{textDecoration: "none"}}  aria-label="Chat on WhatsApp" href={`https://wa.me/919845318077`} > <button className="wa-btn NeuExBlack"><img src={whatsapp} style={{width: "15px"}} /><span style={{marginBottom: "0px"}}>WhatsApp</span></button></a> */}
+                <div className="" style={{backgroundColor: "#ffffff"}}>
+                    <div className="btn-cont bg-white">
+                    {userData?.mobileNo ?  <a style={{textDecoration: "none"}} href={`tel://${userData.mobileNo}`}><button className="phone-btn NeuExBlack"><img src={call} style={{width: "13px"}} /><span style={{marginBottom: "0px"}}>Call</span></button></a> : null }
+                    {userData?.whatsapp ? <a style={{textDecoration: "none"}}  aria-label="Chat on WhatsApp" href={`https://wa.me/${userData?.whatsapp}`} > <button className="wa-btn NeuExBlack"><img src={whatsapp} style={{width: "15px"}} /><span style={{marginBottom: "0px"}}>WhatsApp</span></button></a> : null }
                     </div>
                     {/* <div className="typing-animation-container" style={{margin: "30px 0"}}>
       <p style={{fontSize: "small"}} className="MontserratR">We are seasoned in</p>
@@ -386,7 +406,7 @@ const Index = () => {
         {<span className="cursor" >|</span>}
       </p>
     </div> */}
-                    <div>
+                    <div className="min-h-[40vh]">
 
                         {/* <h2 className="NeuExBlack" style={{textAlign: "center"}}>Works & Portfolios</h2> */}
                         {
@@ -399,8 +419,8 @@ const Index = () => {
                                 <div className="vt-cardmain" key={index}>
                                 <img src={webd.coverimage} className="vt-img rounded-[20px]" style={{height:"100px"}} /> 
                                 <div className="vt-content">
-                                    <h3 style={{color:"#162449"}} className="GilroyBoldT">{webd.title}</h3>
-                                    {/* <h5 style={{color:"#3E4152"}} className="GilroyMedT">{webd.description}</h5> */}
+                                    <h3 style={{color:"#162449"}} className="GilroyBoldT">{ webd.title.substring(0,15) }{ webd.title.length > 15 ? "..." : null }</h3>
+                                    <h5 style={{color:"#3E4152"}} className="GilroyMedT">{webd.description.substring(0,40) }{ webd.description.length > 40 ? "..." : null }</h5>
                                 </div>
                                 {/* <button className="disbtn GilroyBoldT" style={{color: "#162449"}} onClick={() => window.open(webd.link, "_blank")}>
                                     Discover
@@ -422,8 +442,8 @@ const Index = () => {
                                 <div className="vt-cardmain" key={index}>
                                 <img src={brand.coverimage} className="vt-img rounded-[20px]" style={{height:"100px"}} /> 
                                 <div className="vt-content">
-                                    <h3 style={{color:"#162449"}} className="GilroyBoldT">{brand.title}</h3>
-                                    {/* <h5 style={{color:"#3E4152"}} className="GilroyMedT">{brand.description}</h5> */}
+                                    <h3 style={{color:"#162449"}} className="GilroyBoldT">{brand.title.substring(0,15)}{ brand.title.length > 15 ? "..." : null }</h3>
+                                    <h5 style={{color:"#3E4152"}} className="GilroyMedT">{brand.description.substring(0,40)}{ brand.description.length > 40 ? "..." : null }</h5>
                                 </div>
                                 {/* <button className="disbtn GilroyBoldT" style={{color: "#162449"}} onClick={() => window.open(brand.link, "_blank")}>
                                     Discover

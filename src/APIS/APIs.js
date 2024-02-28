@@ -330,3 +330,21 @@ export const GetuserServiceOrProductForStallHandler = ()=>{
   let output = fetch(`${BASE_URL}/api/user/get-user-qr`,{method:"GET"}).then(res=>res.json());
   return output ;
  }
+
+
+//  Proxy Part Start
+
+export const handleFoodForUser = (userID , meal)=>{
+  let output = fetch(`${BASE_URL}/api/proxy/Food/${userID}/${meal}`,{method:"GET"}).then(res=>res.json());
+  return output ;
+}
+
+export const handleHallForUser = (userID , hall)=>{
+  let output = fetch(`${BASE_URL}/api/proxy/Hall/${userID}/${hall}`,{method:"GET"}).then(res=>res.json());
+  return output ;  
+}
+
+export const handleGiftForUser = (userID , gift)=>{
+  let output = fetch(`${BASE_URL}/api/proxy/Gift/${userID}`,{method:"GET"}).then(res=>res.json());
+  return output ;         
+}

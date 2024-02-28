@@ -26,6 +26,7 @@ const VisitorProfile = lazy(() => import('./Components/VisitorProfile/index'));
 const ServiceOrProductCreate = lazy(() => import('./MainComponents/EditProfile/ServiceOrProductCreate'));
 const ExportToExcel = lazy(() => import('./MainComponents/Dashboard/ExportToExcel'));
 const ProfileV2 = lazy(() => import('./MainComponents/Profilev2/index'));
+const Proxy = lazy(() => import('./Components/Proxy/index'));
 
 
 const App = () => {
@@ -44,13 +45,16 @@ const App = () => {
          :
         <Route path="/" element={<Login />} />       
         }
+
+     
+        
         <Route path="/dashboard" element={<UserRoutes> <Dashboard/> </UserRoutes> } />
         <Route path="/stallprofile" element={<UserRoutes><StallProfile/></UserRoutes>} />
         <Route path="/productservicedetails/:id" element={ <UserRoutes><ProductService/></UserRoutes>} />
         {/* <Route path="/profile/:profileUserName" element={<ProfilePage/>} /> */}
         <Route path="/userdashboard" element={<UserRoutes> <DashboardPage/></UserRoutes> } />
         <Route path="/eventinsights" element={<UserRoutes> <EventInsights/></UserRoutes>} />
-        <Route path="/editprofile" element={<UserRoutes> <EditProfile/></UserRoutes>  } />
+        <Route path="/editprofile/:tab" element={<UserRoutes> <EditProfile/></UserRoutes>  } />
         <Route path="/editstall" element={<UserRoutes> <EditStall/> </UserRoutes> } />
         <Route path="/profile/yuktijewels" element={ <Yuktijewels/>  } />
         <Route path="/profile/username" element={ <Profile/>  } />
@@ -59,7 +63,8 @@ const App = () => {
         <Route path="/visitorprofile" element={ <VisitorProfile/>  } />
         <Route path="/createproductservices" element={ <ServiceOrProductCreate  />  } />
         <Route path="/excelexport" element={ <ExportToExcel  />  } />
-        <Route path="/profile/:profileUserName" element={ <ProfileV2  />  } />
+        <Route path="/profile/:profileUserName" element={ < ProfileV2  />  } />
+        <Route path="/proxy/:userID" element={ <Proxy/>  } />
         <Route path="*" element={<Error404/>} />
       </Routes>
     </Suspense>

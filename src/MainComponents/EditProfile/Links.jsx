@@ -421,9 +421,9 @@ const handlecancel = ()=>{
                 <div className='text-end'>
                 {
                      isEdit ?
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>{setIsEditPopup(true)}}>Save</button>
+                    <button disabled={ uploading } className={`${uploading  ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`}  onClick={()=>{setIsEditPopup(true)}}>Save</button>
                      :
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>{setIsCreatePopup(true)}}>Add</button>
+                    <button disabled={ uploading  } className={`${uploading  ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`} onClick={()=>{setIsCreatePopup(true)}}>Add</button>
                   }
                 </div>
                </div>
@@ -432,14 +432,14 @@ const handlecancel = ()=>{
                <div className='mx-5 flex py-10 mb-10 flex-col gap-10 rounded-[20px] p-5 bg-white mt-[30px]'>
                <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Title <sup className='text-[#D50B0B]'>*</sup></div>
-                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { title.length } / 100 ) </div>
+                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { title.length } / 50 ) </div>
 
                 <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><MdTitle /></div>
                 <input type="text" value={title} placeholder='title' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setTitle(e.target.value)} />
                </div> 
                <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-3 text-[#5A5A5A]  bg-white pl-2'> Descripiton <sup className='text-[#D50B0B]'>*</sup></div>
-                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { description.length } / 200 ) </div>
+                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { description.length } / 100 ) </div>
                 <textarea rows={10} value={description} placeholder='Give a Description ' className=' py-5 w-[100%] px-10  border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDescription(e.target.value)} ></textarea>
 
                </div>    

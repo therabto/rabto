@@ -22,6 +22,11 @@ import { CreateStallHandler, DeleteStallHandler, GetuserStallHandler, UpdateStal
         ,GetuserServiceOrProductForStallHandler , AddaServiceOrProductTOStallHandler ,
          RemoveaServiceOrProductTOStallHandler , getStallServiesORProductsHandler, getSubcriptionsHandler } from '../../APIS/APIs';
 import CropSection from '../EditProfile/CropSection';
+import ReactLoading from 'react-loading';
+import Popup from '../Popup/Popup';
+import Loading from '../../Components/Loading/Loading';
+import SuccessFailure from '../SuccessFailure/SuccessFailure';
+
 
 
 const Profile = ({ USER_NAME }) => {
@@ -44,6 +49,15 @@ const Profile = ({ USER_NAME }) => {
     const [subcriptions,setSubcriptions] = useState([]);
     const [checkUpgrade,setCheckUpgrade] = useState(false);
     const [croppingModal1Open,setCroppingModel1Open] = useState(false);
+    const [uploading,setUploading] = useState(false);
+    const [uploading2,setUploading2] = useState(false);
+    const [isCreatePopup,setIsCreatePopup] = useState(false);
+    const [isEditPopup,setIsEditPopup] = useState(false);
+    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading2,setIsLoading2] = useState(false);
+    const [isSuccessFail,setIsSuccessFail] = useState(false);
+    const [isSuccess,setIsSuccess] = useState(false);
+    const [message,setMessage] = useState("");
 
 
 
@@ -93,14 +107,17 @@ const Profile = ({ USER_NAME }) => {
   const HandleEbrochure = (e)=>{
     let file = e.target.files[0];
     if(file){
-     
+         setUploading2(true);
          UploadFile(file)
             .then((downloadURL) => {
+              setUploading2(false);
               // console.log("Download URL:", downloadURL);
               setEBrochure(downloadURL)
              })
             .catch((error) => {
               // console.error("Error:", error);
+             setUploading2(false);
+
                });
 
 
@@ -152,10 +169,13 @@ const Profile = ({ USER_NAME }) => {
                stallId :stallProfile._id,
                serviceOrProductIdToAdd:id
                 }
+                setIsLoading(true);
                 AddaServiceOrProductTOStallHandler("POST",data).then(res=>{
                   // console.log(" add stall products response",res);
                   handleModalClose();
-                  getStallHandler()
+                  getStallHandler();
+                  setCreateProduct('');
+                  setIsLoading(false);
                 })
     }
   }
@@ -166,14 +186,33 @@ const Profile = ({ USER_NAME }) => {
                stallId :stallProfile._id,
                serviceOrProductIdToRemove:id
                 }
+                setIsLoading2(true);
                 RemoveaServiceOrProductTOStallHandler("POST",data).then(res=>{
                 // console.log(" stall products response",res);
                 getStallHandler();
+                setIsLoading2(false);
               })
     }
   }
 
-  
+const handleCreatemodel = (action)=>{
+    if(action === true){
+      UpdateCreateHandler("CREATE");
+    }
+    setIsEditPopup(false);
+}
+
+const handleEditmodel = (action)=>{
+  if(action === true){
+    UpdateCreateHandler("UPDATE");
+  }
+  setIsEditPopup(false);
+}
+
+const handleSuccessFail = ()=>{
+  setIsSuccessFail(!isSuccessFail);
+ }
+ 
 
    const UpdateCreateHandler = async (action)=>{
     let data = {
@@ -186,13 +225,31 @@ const Profile = ({ USER_NAME }) => {
        mobileNo:phoneNo , 
        ebrochure :ebrochure,
     }
+    setIsLoading(true);
     if(action === "CREATE"){
     CreateStallHandler("POST",data).then(response=>{
         // console.log("response",response);
         if(response.isSuccess){ 
         getStallHandler();
-        handleModalClose()
+        handleModalClose();
+        setCreateProduct('');
+        setIsSuccessFail(true);
+        setIsSuccess(true);
+        setMessage(response.message);
+        setTimeout(()=>{
+         setIsSuccessFail(false);              
+        },3000)
+
       }
+      else{
+        setIsSuccessFail(true);
+        setIsSuccess(false);
+        setMessage(response.message);
+        setTimeout(()=>{
+         setIsSuccessFail(false);              
+        },3000)
+      }
+      setIsLoading(false);
     })
     }
     else if(action === "UPDATE"){
@@ -204,12 +261,25 @@ const Profile = ({ USER_NAME }) => {
               getStallHandler();
               handleModalClose();
              AfterUpdateHandler();
-
+             setIsSuccessFail(true);
+             setIsSuccess(true);
+             setMessage(response.message);
+             setTimeout(()=>{
+              setIsSuccessFail(false);              
+             },3000)
             }
- 
+            else{
+              setIsSuccessFail(true);
+              setIsSuccess(false);
+              setMessage(response.message);
+              setTimeout(()=>{
+               setIsSuccessFail(false);              
+              },3000)
+            }
+            setIsLoading(false); 
          })
     }
- 
+    setCreateProduct('');
    }
  
    const DeleteHandler = (item)=>{
@@ -277,14 +347,14 @@ const checkSuncription = ()=>{
 
 const handleCoverCroppedImgSet = (image)=>{
   //  console.log("image",image);
-  // setUploading(true);
+  setUploading(true);
   setCroppingModel1Open(false);
   setShowModal1(true);
    UploadFile(image)
    .then((downloadURL) => {
     console.log("Download URL: ", downloadURL);
        setPhoto(downloadURL);
-      //setUploading(false);
+      setUploading(false);
     })
    .catch((error) => {
      console.error("Error:", error);
@@ -299,17 +369,26 @@ const handlecancel = ()=>{
 
 return (
     <Fragment>
+      
       {
         croppingModal1Open ? 
        <CropSection imageSetHandler={handleCoverCroppedImgSet} image={photo} cancelhandler={handlecancel} aspect={1}/>
           :
         null
       }
-      <div className='border max-w-[600px] lg:max-w-[400px] m-auto relative'>
 
+      <div className='border max-w-[600px] lg:max-w-[400px] m-auto relative'>
+     
         <div className='mx-5 min-h-screen pb-5'>
+        {
+        isLoading2 ?
+            <div className='z-50'>
+              <Loading/>
+            </div>
+                :
+          <Fragment>
             <div className='flex p-4'>        
-               <div className="flex-1 text-left absolute bg-white p-1 rounded-[5px] z-50 shadow-2xl  top-5 left-5"><Link to={`/profile/${USER_NAME}`}><FaArrowLeft className='text-[20px]' /></Link></div>
+               <div className="flex-1 text-left absolute bg-white p-1 rounded-[5px] z-30 shadow-2xl  top-5 left-5"><Link to={`/profile/${USER_NAME}`}><FaArrowLeft className='text-[20px]' /></Link></div>
                {/* <div className="flex-1 text-[12px] text-right text-[#3F3131] gilroyBold" ><span onClick={handlePrint} className='cursor-pointer'>E-brochure</span></div> */}
             </div>
             {
@@ -339,7 +418,7 @@ return (
              </div>
              <div className='relative'>
              <button className='absolute top-0 right-0 text-[30px] active:text-[35px] text-white' onClick={()=>setShowModal2(true)}>
-              <FaPlusSquare className='border-black border bg-slate-400 p-1 rounded-[7px]'/>
+              <FaPlusSquare className=' border bg-[#9EE86F] p-1 rounded-[7px]'/>
               </button>
             
             <div className="text-[20px] font-bold  gilroyBold mt-10 pt-2 ml-2 text-[#162449]" style={{letterSpacing:"1px"}}>SERVICE / PRODUCT</div>
@@ -366,10 +445,20 @@ return (
             </div>
             </Fragment>
            } 
+          </Fragment>
+          }
         </div>
+     
 
   { showModal2 ?
     <Fragment>
+      {
+        isLoading ?
+                <div className='z-50'>
+                  <Loading/>
+                </div>
+                :
+        <Fragment>
         <div className='absolute top-0 bottom-0 left-0 right-0  z-10 bg-black opacity-60'></div>
         <div className="absolute left-0 right-0 top-0 bottom-0 z-50 bg-white ">
             <div className=' flex items-center justify-center m-auto  w-[100%] '>
@@ -379,7 +468,10 @@ return (
                 <div className='flex-1 text-left'>
                     <IoMdArrowRoundBack className="text-[25px] font-bold active:text-[35px] " onClick={handleModalClose} />
                 </div>
-                <div >
+                {
+                  Createproduct ?
+                
+                   <div >
                   {
                     isEdit ?                  
                     <button className='text-[#52D22E] cursor-pointer font-bold' >Save</button>
@@ -387,18 +479,30 @@ return (
                     <button className='text-[#52D22E] cursor-pointer font-bold' disabled={!Createproduct} onClick={()=>AddStallProductOrServicesHandler(Createproduct)}>Add</button>
                   }
                     </div>
+                    :
+                    null
+                    }
 
                </div>
                </div>
                <div className='px-8 flex flex-col gap-5'>
                <div className='font-bold text-[18px] '> {isEdit ? "Edit" :  "Add" } a Product </div>
+               
+               {
+               allserviceproduct?.length > 0 ?               
                <div className='flex flex-col gap-2 w-[100%] font-semibold text-[16px]'>
-                 <select value={Createproduct} onChange={(e)=>setCreateProduct(e.target.value)}>
-                  <option>-- select Product or servies --</option>
+                 <select value={Createproduct} className='border-2 rounded-[20px] p-4 text-[green]' onChange={(e)=>setCreateProduct(e.target.value)}>
+                  <option value="">-- select Product or servies --</option>
                   {allserviceproduct?.length > 0 &&
                    allserviceproduct.map(item=><option value={item._id}>{item.title}</option>) }
                   </select>             
                </div>
+               :
+               <div className='flex justify-center items-center'>
+                  <Link to="/editprofile/LINKS" className='bg-[#52D22E] p-4 rounded-[20px] text-[white]'>Create a Product</Link>
+               </div>
+               }
+
                           
                </div>
               
@@ -408,19 +512,30 @@ return (
             
             </div>
            
-         </div>
+        </div>
+        </Fragment>
+      }
          </Fragment>
 : 
 null
 }  
 
 { showModal1 ?
+<Fragment>
+{
+        isLoading ?
+                <div className='z-50'>
+                  <Loading/>
+                </div>
+                :
+               
+
     <Fragment>
          <div className='absolute top-0 bottom-0 left-0 right-0  z-10 bg-black opacity-60'></div>
-        <div className="absolute left-0 right-0 top-0 bottom-0 z-50 bg-white ">
+        <div className="absolute left-0 right-0 top-0 bottom-0 z-40 bg-white ">
             <div className=' flex items-center justify-center m-auto  w-[100%] '>
                 <div className='w-[100%] h-[98vh] overflow-y-scroll  bg-white ' >
-               <div className="sticky z-50 top-0 bg-white">
+               <div className="sticky z-40 top-0 bg-black">
                <div className=" flex  w-[100%] py-5 px-5 bg-white ">
                 <div className='flex-1 text-left'>
                     <IoMdArrowRoundBack className="text-[25px] font-bold active:text-[35px] " onClick={handleModalClose} />
@@ -428,9 +543,9 @@ null
                 <div >
                 {
                     isEdit ?                  
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>UpdateCreateHandler("UPDATE")}>Save</button>
+                    <button disabled={ uploading || uploading2 } className={`${uploading || uploading2 ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`} onClick={()=>setIsEditPopup(true)}>Save</button>
                     :
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>UpdateCreateHandler("CREATE")}>Add</button>
+                    <button disabled={ uploading || uploading2 } className={`${uploading || uploading2 ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`} onClick={()=>setIsCreatePopup(true)}>Add</button>
                   }
                 </div>
                </div>
@@ -451,8 +566,20 @@ null
                               <input id="coverimage" type="file" className='hidden' onChange={HandleProfilePhoto} />
                               <label htmlFor='coverimage' className='p-5 relative flex items-center justify-center w-[100%]'>
                                 {photo ? 
-                                <div className='relative w-[200px] h-[200px] rounded-full'>
-                                   <img src={photo} alt='Cover Image...' className='relative w-[200px] h-[200px] rounded-full'/>
+                                <div className='relative w-[200px] h-[180px] rounded-full'>
+                                   <img src={photo} alt='Cover Image...' className='relative w-[150px] h-[150px] rounded-full'/>
+                                   {uploading ?
+                           <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
+                           <div className='z-20 flex items-center justify-center'>
+                               <div className='felx flex-col'>
+                                {/* <div><img src={MiniLogo} alt="Logo" className='animate-pulse' /></div> */}
+                                 <ReactLoading type="cylon" color="black"  />
+                               </div>
+                           </div>
+                          </div>
+                       :
+                       null
+                       }
                                 </div> 
                                  :  
                                  <div className='flex flex-col items-center justify-center gap-10'> 
@@ -461,14 +588,12 @@ null
                                   </div>
                                  }
                               </label>
-                            </div>
-                            
+                            </div>   
                           </div>
                           <div className='flex flex-col gap-2 w-[100%] font-semibold text-[16px]'>
                             <div className="flex items-center gap-5 text-[#162449]">
                               <div><RiAccountCircleFill className='text-[28px] text-[#162449]'/></div>
                               <div className='flex items-center w-[100%]'><span className='flex-1 text-left text-[20px]'>Display Name<sup className='text-red-500'>*</sup></span> <span className={`text-[10px] font-medium text-end   ${false? "text-red-500":""} `}>( {displayName.length} / 50 )</span></div>
-
                             </div>
                             <div className="w-[100%]">
                               <input  value={displayName} onChange={(e)=>setDisplayName(e.target.value)} type="text" placeholder='Jhon doe' className='w-[100%] h-[50px] border px-5 border-[#162449] rounded-[10px]' />
@@ -511,22 +636,44 @@ null
                                 {ebrochure ? 
                                 <div className='relative w-[200px] h-[200px] flex items-center justify-center rounded-full'>
                                   <div className='text-center'> E-Brochure Uploaded Successfully </div>
-                                </div> 
-                                 : 
-                                 <div className='flex flex-col items-center justify-center gap-10'> 
-                                 <MdOutlineFileUpload className='text-[150px] '/>
-                                  {/* <div className='text-center'> 500 X 500 </div> */}
-                                  </div>
-                                 }
-                              </label>
-                            </div>
-                            
+                                  {uploading2 ?
+                           <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
+                           <div className='z-20 flex items-center justify-center'>
+                               <div className='felx flex-col'>
+                                {/* <div><img src={MiniLogo} alt="Logo" className='animate-pulse' /></div> */}
+                                 <ReactLoading type="cylon" color="black"  />
+                               </div>
+                           </div>
                           </div>
-                      </div>
-                      </div>
+                       :
+                       null
+                       }
+                      </div> 
+                      : 
+                      <div className='flex flex-col items-center justify-center gap-10'> 
+                      <MdOutlineFileUpload className='text-[150px] '/>
+                      {uploading2 ?
+                           <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
+                           <div className='z-20 flex items-center justify-center'>
+                               <div className='felx flex-col'>
+                                {/* <div><img src={MiniLogo} alt="Logo" className='animate-pulse' /></div> */}
+                                 <ReactLoading type="cylon" color="black"  />
+                               </div>
+                           </div>
+                          </div>
+                       :
+                       null
+                       }
+                                  {/* <div className='text-center'> 500 X 500 </div> */}
+                    </div>
+                    }
+                  </label>
+                  </div>                            
+                  </div>
+                  </div>
+                  </div>
                       
-                      <div className='w-[100%]  px-5' >
-                      
+                  <div className='w-[100%]  px-5' >    
                       <div className='flex flex-col gap-5 w-[100%] rounded-[10px] p-5 border'>
                       <div className='text-bold text-[30px] '>
                            Contact Details
@@ -535,7 +682,6 @@ null
                             <div className="flex items-center gap-5 text-[#162449]">
                               <div><MdOutlineCall className='text-[28px] text-[#162449]'/></div>
                               <div className='flex items-center w-[100%]'><span className='flex-1 text-left text-[20px]'>Phone No<sup className='text-red-500'>*</sup></span> </div>
-
                             </div>
                             <div className="w-[100%]">
                               <input value={phoneNo} onChange={(e)=>setPhoneNo(e.target.value)} type="text" placeholder='1234567890' className='w-[100%] h-[50px] border px-5 border-[#162449] rounded-[10px]' />
@@ -545,29 +691,46 @@ null
                             <div className="flex items-center gap-5 text-[#162449]">
                               <div><TbWorld className='text-[28px] text-[#162449]'/> </div>
                               <div className='flex items-center w-[100%] text-[20px]'><span className='flex-1 text-left'>Rabto Profile URL <sup className='text-red-500'>*</sup> </span> </div>
-
                             </div>
                             <div className="w-[100%]">
                               <input value={`https://app.rabto.in/profile/${USER_NAME}`} onChange={(e)=>setWebsite(e.target.value)} readOnly type="text" placeholder='https://rabto.com/jhondoe' className='w-[100%] border-[#162449] h-[50px] border px-5 rounded-[10px]' />
                             </div>
                           </div>
-                          
-                          
                       </div>
                       </div>
-               </div>
-              
-                             
+               </div>       
                 </div>
-           
-            
             </div>
-           
          </div>
-         </Fragment>
+</Fragment>
+}
+{  isSuccessFail ?
+  <SuccessFailure message={message} isSuccess={isSuccess} handlesucessFail={handleSuccessFail}/>
+  :
+  null
+}
+</Fragment>
 : 
 null
 }
+
+{
+  isEditPopup ? 
+  <Popup handleModel={handleEditmodel} isEdit={true} />
+  :
+  null
+}
+
+{
+  isCreatePopup ? 
+  <Popup handleModel={handleCreatemodel} isCreate={true} />
+  :
+  null
+}
+
+
+
+
 {checkUpgrade ? 
 
 <>
@@ -590,7 +753,6 @@ null
 </>
 :
 null
-
 
 }
 </div>

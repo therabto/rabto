@@ -90,8 +90,8 @@ const onCropComplete = async (_, croppedAreaPixels) => {
 
   return (
    <Fragment>
-        <div className='top-0 left-0 right-0 bottom-0 w-[100%] fixed z-50 bg-white'>
-            <div className='w-[100%] relative z-10 grid grid-cols-3 bg-[#9EE86F] p-4 font-bold text-[18px]'>
+        <div className='top-0 left-0 right-0 bottom-0 m-auto max-w-[768px] md:max-w-[400px]   fixed z-50 bg-white'>
+            <div className='w-[100%] relative z-10 grid grid-cols-3  bg-[#9EE86F] p-4 font-bold text-[18px]'>
                   <div className='col-span-1'>
                     <div className='flex items-center justify-start'>
                     <IoCloseSharp onClick={handleCancelClick} />

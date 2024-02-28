@@ -65,7 +65,8 @@ const Profilenew = ({userData , USER_NAME , handleData}) => {
   const [whatsapp,setWhatsapp] = useState('');
   const [companyName,setCompanyName] = useState('');
   const [email,setEmail] = useState('');
-  const [uploading,setUploading] = useState('');
+  const [uploading,setUploading] = useState(false);
+  const [uploading2,setUploading2] = useState(false);
   const [isEditPopup,setIsEditPopup] = useState(false);
 
   const [isSuccessFail,setIsSuccessFail] = useState(false);
@@ -260,25 +261,24 @@ const handleProfileCroppedImgSet = (image)=>{
         })
        .catch((error) => {
          console.error("Error:", error);
+         setUploading(false);
         }); 
 }
 
 const handleBannerCroppedImgSet = (image)=>{
   setCroppingModel2Open(false);
       setShowModal3(true);
-      setUploading(true);
-
-
-       
+      setUploading2(true);
   UploadFile(image)
   .then((downloadURL) => {
   //  console.log("Download URL: ", downloadURL);
       setBanner(downloadURL);
       setIsBtnLoading(false);
-      setUploading(false);
+      setUploading2(false);
    })
   .catch((error) => {
     console.error("Error:", error);
+    setUploading2(false);
    });
 }
 
@@ -308,8 +308,8 @@ return (
           :
         null
       }
-    <div className='min-h-[50vh] relative'>
-    <div className='w-[100%] lg:max-w-[400px] fixed' >
+    <div className='min-h-[50vh] max-w-[768px] md:max-w-[400px] relative'>
+    <div className='w-[100%] md:max-w-[400px] fixed' >
       <div className='w-[100%] h-[210px]'>
         <img src={userData?.banner} loading="lazy" alt="Profile GIF" className='h-[210px] w-[100%] ' />
     {/* <button className='absolute top-[120px] left-[80%] text-[20px] items-center font-medium px-2 active:text-[35px] text-[#9EE86F] flex gap-1 rounded-full' onClick={()=>{EditDataSetHandler() ;setShowModal1(true)}}>
@@ -320,7 +320,7 @@ return (
         </button>
         </div>
     </div>
-    <div className='relative max-w-[600px] lg:max-w-[400px] z-20 top-[150px] '>
+    <div className='relative max-w-[768px] md:max-w-[400px] z-20 top-[150px] '>
       <div ref={componentRef}
        className={`${isAtTop ? "rounded-none" : "rounded-t-[40px]"} transition-all duration-300 bg-white   pb-10 relative `}
        >
@@ -471,7 +471,7 @@ null
                 </div>
                 <div className="text-[#130F26] text-center text-[20px]  vvdsfifties font-bold">User Details</div>
                 <div className='text-end'>
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>{setIsEditPopup(true)}}>Save</button>
+                    <button disabled={ uploading || uploading2 } className={`${uploading || uploading2 ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`} onClick={()=>{setIsEditPopup(true)}}>Save</button>
                 </div>
                </div>
                </div>
@@ -525,7 +525,7 @@ null
                <input type="file" id="uplod-banner-image" className='hidden' onChange={handleProfileBannerUpload}  />
                 <label htmlFor='uplod-banner-image' className=' relative    w-[80px]  ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
                  <img src={banner} alt="Profile GIF" className='w-[80px] h-[30px] m-auto '  />
-                 {uploading ?
+                 {uploading2 ?
                            <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
                            <div className='z-20 flex items-center justify-center'>
                                <div className='felx flex-col'>

@@ -62,9 +62,9 @@ filteredArray = stalls?.length > 0 && visitorEventdata?.Bookmark.length > 0 &&  
               filteredArray?.length > 0  && filteredArray.map(item=>
               <Link to={`/stall/${item._id}`} className='flex items-center w-[100%] flex-col'>
              <div className="grid mx-5 grid-cols-7 gap-1 w-[100%]  p-2">
-              <div className='text-start flex items-center col-span-5 text-[#162449] text-[14px] gilroyBold' style={{fontWeight:700}}>{item.name}</div>
+              <div className='text-start flex items-center col-span-6 text-[#162449] text-[14px] gilroyBold' style={{fontWeight:700}}>{item.name}</div>
               <div className='text-start col-span-1 flex items-center text-[#000000] text-[14px] gilroyMedium' style={{fontWeight:400}}>{item.stallNo}</div>
-              <div className='text-start col-span-1 flex items-center'><img src={c1} alt="category image" className='w-[30px] h-[30px]' /></div>
+              {/* <div className='text-start col-span-1 flex items-center'><img src={c1} alt="category image" className='w-[30px] h-[30px]' /></div> */}
              </div>
 
              </Link>)
