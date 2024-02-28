@@ -338,19 +338,19 @@ const handlecancel = ()=>{
 
                         <ScrollMenu>
                             {services.map((item, index) => (
-                                 <div className='ml-5'>
-                                 <div  className=' shadow-md relative shadow-[#1624494D]  pl-4 pt-3 pr-4 border rounded-[20px] h-[350px] w-[180px]' >
+                                 <div className='ml-5 my-5'>
+                                 <div  className=' shadow-md relative shadow-[#1624494D]  pl-2 pt-3 pr-2 border rounded-[20px] h-[290px] w-[230p' >
                                   <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[150px] h-[100px]">
-                                    <img src={item.coverimage} alt="product image" className='w-[150px] h-[100px] rounded-[15px]' />
+                                    <img src={item.coverimage} alt="product image" className='w-[150px] h-[100px] rounded-[15px] object-cover' />
                                   </div>
                                      
-                                    <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item.title}</div>
-                                    <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5   '>
+                                    <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item?.title?.substring(0,15)}{item?.item?.length > 15 ? "..." : null}</div>
+                                    <div className='absolute bottom-0 left-0 right-0 w-[100%] px-2   '>
                                    
                
-                                     <div className="flex gap-5 item-center justify-center flex-col w-[100%] mb-5">
+                                     <div className="flex gap-3 item-center justify-center flex-col w-[100%] mb-5">
                                         <div className='w-[100%] '>
-                                           <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[95%] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
                                         </div>
                                         <div className='w-[100%] '>
                                            <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
@@ -374,28 +374,28 @@ const handlecancel = ()=>{
 
                         <ScrollMenu>
                             {products.map((item, index) => (
-                                <div className='ml-5'>
-                                <div  className=' shadow-md relative shadow-[#1624494D]  pl-4 pt-3 pr-4 border rounded-[20px] h-[350px] w-[180px]' >
-                                 <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[150px] h-[100px]">
-                                   <img src={item.coverimage} alt="product image" className='w-[150px] h-[100px] rounded-[15px]' />
-                                 </div>
-                                    
-                                   <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item.title}</div>
-                                   <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5   '>
-                                  
-              
-                                    <div className="flex gap-5 item-center justify-center flex-col w-[100%] mb-5">
-                                       <div className='w-[100%] '>
-                                          <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
-                                       </div>
-                                       <div className='w-[100%] '>
-                                          <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
-                                       </div>
-                                    </div>      
-                                          
-                                    </div>
-                                 </div>
-                                 </div>
+                                 <div className='ml-5 my-5'>
+                                 <div  className=' shadow-md relative shadow-[#1624494D]  pl-2 pt-3 pr-2 border rounded-[20px] h-[290px] w-[230p' >
+                                  <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[150px] h-[100px]">
+                                    <img src={item.coverimage} alt="product image" className='w-[150px] h-[100px] rounded-[15px] object-cover' />
+                                  </div>
+                                     
+                                    <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item?.title?.substring(0,15)}{item?.item?.length > 15 ? "..." : null}</div>
+                                    <div className='absolute bottom-0 left-0 right-0 w-[100%] px-2   '>
+                                   
+               
+                                     <div className="flex gap-3 item-center justify-center flex-col w-[100%] mb-5">
+                                        <div className='w-[100%] '>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[95%] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
+                                        </div>
+                                        <div className='w-[100%] '>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
+                                        </div>
+                                     </div>      
+                                           
+                                     </div>
+                                  </div>
+                                  </div>
                             ))}
                         </ScrollMenu>
                         </Fragment>
@@ -464,8 +464,8 @@ const handlecancel = ()=>{
                 <input type="file"  placeholder='title' className='w-[100%] hidden pl-10 h-[200px] border border-[#CBCBCB] rounded-[10px]' onChange={HandleCoverImage} />
                 {
                  coverImage ? 
-                        <div className='relative w-[180px] h-[180px]'>
-                            <img src={coverImage} alt='Cover Image...' className='w-[180px] h-[180px]'/>
+                        <div className='relative w-[180px] h-[160px] flex items-center justify-center'>
+                            <img src={coverImage} alt='Cover Image...' className='w-[150px] m-auto h-auto'/>
                             {uploading ?
                            <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
                            <div className='z-20 flex items-center justify-center'>

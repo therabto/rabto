@@ -12,6 +12,7 @@ const Profile = () => {
   const handlePrint = () => {
     window.print();
   };
+  
   return (
     <Fragment>
       <div className="border max-w-[600px] lg:max-w-[400px] m-auto realtive ">

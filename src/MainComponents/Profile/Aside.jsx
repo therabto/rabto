@@ -20,7 +20,7 @@ const asideArray = [
     { path:"userdashboard",Name:"Dashboard" },
     { path:"editprofile/PROFILE",Name:"Edit Profile" },
     { path:"editstall",Name:"Edit Stall" },
-    { path:"dashboard",Name:"Live Events" },
+    // { path:"dashboard",Name:"Dashboard" },
     ]
 
     
@@ -77,7 +77,7 @@ const getUserProfile = async()=>{
               <div className=' relative  w-[50px] h-[50px] rounded-full ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
               <img src={userData?.profilePhoto} className='w-[50px] h-[50px]  rounded-full' />
               </div>
-              <div className='gilroyBold text-[24px] text-[#000000] ml-4'>{userData?.displayName?.substring(0,10)}{userData?.displayName?.length > 10  ? null : ".."}</div>
+              <div className='gilroyBold text-[24px] text-[#000000] ml-4'>{userData?.displayName?.substring(0,10)}{userData?.displayName?.length > 10  ? "..." : null}</div>
               <BsShieldFillCheck className='text-[#2F80ED]' />
               </Link>
 
@@ -95,11 +95,11 @@ const getUserProfile = async()=>{
                      {menu.path === "userdashboard" ? <MdOutlineDashboard className=' my-auto text-2xl ' /> : null }
                      {menu.path === "editprofile/PROFILE" ? <FaUserPen className=' my-auto text-2xl ' /> : null }
                      {menu.path === "editstall" ? <MdStorefront className=' my-auto text-2xl ' /> : null }
-                     {menu.path === "dashboard" ? <span class="relative flex h-3 w-3">
+                     {/* {menu.path === "dashboard" ? <span class="relative flex h-3 w-3">
                                                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#52D22E] opacity-75"></span>
                                                     <span class="relative inline-flex rounded-full h-3 w-3 bg-[#52D22E]"></span>
                                                   </span> : null 
-                                                  }
+                                                  } */}
                      </div>
                      <div className='my-auto text-xl font-semibold '>{menu.Name}</div>
                      <div className='my-auto absolute text-xl font-semibold right-5'><IoIosArrowForward/></div>

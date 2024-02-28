@@ -417,11 +417,15 @@ return (
                {/* <button className='px-4 py-2 bg-[#9EE86F] rounded-[6px] text-[#000000]'>BookMark</button> */}
              </div>
              <div className='relative'>
-             <button className='absolute top-0 right-0 text-[30px] active:text-[35px] text-white' onClick={()=>setShowModal2(true)}>
+              <div className='flex items-center justify-between  my-5'>
+            <div className="text-[20px] font-bold   gilroyBold   ml-2 text-[#162449]" style={{letterSpacing:"1px"}}>SERVICE / PRODUCT</div>
+
+             <button className='  text-[30px] active:text-[35px] text-white' onClick={()=>setShowModal2(true)}>
               <FaPlusSquare className=' border bg-[#9EE86F] p-1 rounded-[7px]'/>
               </button>
+              </div>
             
-            <div className="text-[20px] font-bold  gilroyBold mt-10 pt-2 ml-2 text-[#162449]" style={{letterSpacing:"1px"}}>SERVICE / PRODUCT</div>
+            
             <div className='grid grid-cols-4 gap-3 mt-3  pb-10 '>
                 {
                   stallserviceproduct.length > 0 &&  stallserviceproduct.map(item=>
@@ -435,7 +439,7 @@ return (
                 <div className="w-[140px] h-auto pb-1 rounded-[20px] shadow-lg">
                     <div>
                         <img src={item.coverimage} className='rounded-t-[20px] object-cover w-[100%] h-[110px]' alt="" />
-                       <div className='text-[#162449] font-bold gilroyBold text-[12px] ml-3 m-2'>{item.title} </div>
+                       <div className='text-[#162449] font-bold gilroyBold text-[12px] ml-3 m-2'>{item?.title?.substring(0,18)}{item?.title?.length > 18 ? "..." : null } </div>
                     </div>
                 </div>
                </div>
@@ -448,8 +452,7 @@ return (
           </Fragment>
           }
         </div>
-     
-
+    
   { showModal2 ?
     <Fragment>
       {
@@ -463,7 +466,7 @@ return (
         <div className="absolute left-0 right-0 top-0 bottom-0 z-50 bg-white ">
             <div className=' flex items-center justify-center m-auto  w-[100%] '>
                 <div className='w-[100%] h-[90vh] overflow-y-scroll  bg-white ' >
-               <div className="sticky z-10 top-0">
+               <div className="sticky z-40 top-0">
                <div className=" flex  w-[100%] py-5 px-5 bg-white ">
                 <div className='flex-1 text-left'>
                     <IoMdArrowRoundBack className="text-[25px] font-bold active:text-[35px] " onClick={handleModalClose} />

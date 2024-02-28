@@ -49,7 +49,7 @@ const App = () => {
      
         
         <Route path="/dashboard" element={<UserRoutes> <Dashboard/> </UserRoutes> } />
-        <Route path="/stallprofile" element={<UserRoutes><StallProfile/></UserRoutes>} />
+        <Route path="/stallprofile" element={<StallProfile/>} />
         <Route path="/productservicedetails/:id" element={ <UserRoutes><ProductService/></UserRoutes>} />
         {/* <Route path="/profile/:profileUserName" element={<ProfilePage/>} /> */}
         <Route path="/userdashboard" element={<UserRoutes> <DashboardPage/></UserRoutes> } />
@@ -58,7 +58,7 @@ const App = () => {
         <Route path="/editstall" element={<UserRoutes> <EditStall/> </UserRoutes> } />
         <Route path="/profile/yuktijewels" element={ <Yuktijewels/>  } />
         <Route path="/profile/username" element={ <Profile/>  } />
-        <Route path="/stall/:stallid" element={<UserRoutes> <NewStallProfile/> </UserRoutes>  } />
+        <Route path="/stall/:stallid" element={<NewStallProfile/>  } />
         <Route path="/bookmark" element={<UserRoutes> <BookMark/> </UserRoutes> } />
         <Route path="/visitorprofile" element={ <VisitorProfile/>  } />
         <Route path="/createproductservices" element={ <ServiceOrProductCreate  />  } />

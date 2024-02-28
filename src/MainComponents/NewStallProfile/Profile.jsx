@@ -68,43 +68,50 @@ const GetStallProductOrServicesHandler = async ()=>{
 //   SetVisitorStalluserDetailsHandler()
 // },[currentuser])
 
-useEffect(() => {
-  
-  if (stallid && userid && Event_ID && !executed) {
-      // console.log("stall id", stallid, userid, Event_ID);
-      let data = {
-          visitorid: userid,
-          eventid: Event_ID,
-          stallid: stallid,
-          name: currentuser.displayName,
-          companyname: currentuser.companyName,
-          mobilenumber: currentuser.mobileNo,
-          emailid: currentuser.email
-      }
-      // console.log("data for checking", data);
-      ScannedVisitorStallCreate("POST", data).then(response => {
-          // console.log('response visitor stall created', response)
-      })
-      ScannedUserStallCreate("POST", data).then(response => {
-          // console.log('response user stall created', response)
-      })
-      setExecuted(true);
-  }
-}, []); 
 
-const BookMarkHandler = ()=>{  
-  if(stallid , Event_ID , userid){
-    let data={
-      visitorid:userid,
-      stallid:stallid,
-      eventid:Event_ID
-     };
-  // console.log("data",data);
-  BookMarkAStallHandler("POST",data).then(response=>{
-    //  console.log("repsonse",response);
-  })
-}
-}
+
+// ----------------------- Removed Temparily  start----------------
+
+// useEffect(() => {
+  
+//   if (stallid && userid && Event_ID && !executed) {
+//       // console.log("stall id", stallid, userid, Event_ID);
+//       let data = {
+//           visitorid: userid,
+//           eventid: Event_ID,
+//           stallid: stallid,
+//           name: currentuser.displayName,
+//           companyname: currentuser.companyName,
+//           mobilenumber: currentuser.mobileNo,
+//           emailid: currentuser.email
+//       }
+//       // console.log("data for checking", data);
+//       ScannedVisitorStallCreate("POST", data).then(response => {
+//           // console.log('response visitor stall created', response)
+//       })
+//       ScannedUserStallCreate("POST", data).then(response => {
+//           // console.log('response user stall created', response)
+//       })
+//       setExecuted(true);
+//   }
+// }, []); 
+
+// const BookMarkHandler = ()=>{  
+//   if(stallid , Event_ID , userid){
+//     let data={
+//       visitorid:userid,
+//       stallid:stallid,
+//       eventid:Event_ID
+//      };
+//   // console.log("data",data);
+//   BookMarkAStallHandler("POST",data).then(response=>{
+//     //  console.log("repsonse",response);
+//   })
+// }
+// }
+
+// ----------------------- Removed Temparily  End----------------
+
 
 
   return (
@@ -113,7 +120,7 @@ const BookMarkHandler = ()=>{
       <div className='min-h-[90vh] relative pb-10'>
         <div className='relative h-[40px]'>
            <div className='absolute top-5 left-5'>
-            <Link to="/dashboard" className='w-[30px] h-[30px] rounded-full flex items-center justify-center font-extrabold' style={{boxShadow: "0px 2px 7px 1px #1624494D"}}>
+            <Link to="/" className='w-[30px] h-[30px] rounded-full flex items-center justify-center font-extrabold' style={{boxShadow: "0px 2px 7px 1px #1624494D"}}>
                 <IoArrowBack className='text-[20px] active:text-[18px]'/>
             </Link>           
         </div>
@@ -132,7 +139,7 @@ const BookMarkHandler = ()=>{
         <div className='flex items-center flex-row mx-5 mt-4 justify-center gap-2'>
           <AddContact name={ stallProfile?.name } phoneNo={stallProfile?.mobileNo }  website={ stallProfile?.rabtoProfieLink } />
           <a href={stallProfile?.rabtoProfieLink} className='h-[45px] w-[112px] justify-center gilroyBold flex  text-[14px] active:text-[12px] rounded-[20px] items-center text-[#22421D] bg-[#8ED364]'>Profile</a>
-          <div className='h-[45px] w-[112px] justify-center gilroyBold flex  text-[14px] active:text-[12px] rounded-[20px] items-center bg-[#22421D] text-[#8ED364]' onClick={BookMarkHandler}>Bookmark</div>
+          {/* <div className='h-[45px] w-[112px] justify-center gilroyBold flex  text-[14px] active:text-[12px] rounded-[20px] items-center bg-[#22421D] text-[#8ED364]' onClick={BookMarkHandler}>Bookmark</div> */}
         </div>
 
         
@@ -156,11 +163,9 @@ const BookMarkHandler = ()=>{
                                    <img src={item.coverimage} alt="product image" className='w-[200px] h-[100px] rounded-[15px]' />
                                  </div>
                                     
-                                   <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item.title}</div>
-                                   <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5   '>
-                                           
-                                         
-                                          
+                                   <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-2 flex items-center justify-start">{item?.title?.substring(0,30)}{item?.title?.length > 30 ?  "..." : null}</div>
+                                   <div className=' w-[100%]    '>
+                                   {item?.description?.substring(0,60)}{item?.description?.length > 60 ?  "..." : null}
                                     </div>
                                  </div>
                                  </a>

@@ -312,7 +312,7 @@ const Index = () => {
         <div>
         <div className="fixed z-50" style={{maxWidth: "768px", margin: "0 auto",position:"relative"}}>
         <div style={{maxWidth: "768px", margin: "0 auto",position:"relative"}}>
-          <div className={`absolute ld:static h-[100vh] top-0 left-0 bottom-0 right-0 opacity-[37%] transition-all  duration-300 ease-in-out   z-40 ${isAsideOpen ? "w-full lg:w-full" : "w-0"}`} onClick={handleAside}></div>
+          <div className={`absolute ld:static h-[100vh] top-0 left-0 bottom-0 right-0 opacity-[37%]  bg-black   ease-in-out   z-40 ${isAsideOpen ? "w-full lg:w-full" : "w-0"}`} onClick={handleAside}></div>
           <div className={`absolute ld:static h-[100vh]  top-0 bottom-0 left-0 z-50 lg:z-50 rounded-r-[50px]  bg-white    transition-all duration-500 w-[300px] ease-in-out ${isAsideOpen ? " ml-0  md:w-[300px]" : "md:w-[0px] md:ml-0 -ml-[300px] "}`}>
            <div className={`${isAsideOpen ? "  md:block " : "  md:hidden"}`}>
            <Aside userData={userData} />
@@ -358,7 +358,7 @@ const Index = () => {
                 </div> */}
                 <div>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} className="mt-3">
-                        <h2 className="MontserratEBold">{userData?.displayName?.substring(0,10)}{userData?.displayName?.length > 10  ? "..." : null}</h2>
+                        <h2 className="MontserratEBold w-[200px] flex items-center justify-center">{userData?.displayName}</h2>
                         <img
                         style={{
                             height:23,
@@ -414,13 +414,13 @@ const Index = () => {
                         <Fragment>
                         <div className="flex items-center ml-5 mt-3 mb-3 text-[21px] gilroyMedium justify-start  text-[#162449]" style={{fontWeight:700}}>SERVICES</div>
                         {/* <h3 className="NeuExBlack" style={{marginLeft: "15px", marginTop: "35px"}}>SERVICE</h3> */}
-                        <ScrollMenu>
+                        <ScrollMenu >
                             {services.map((webd, index) => (
-                                <div className="vt-cardmain" key={index}>
+                                <div className="vt-cardmain " style={{marginBottom:"30px",marginTop:"10px"}} key={index}>
                                 <img src={webd.coverimage} className="vt-img rounded-[20px]" style={{height:"100px"}} /> 
-                                <div className="vt-content">
-                                    <h3 style={{color:"#162449"}} className="GilroyBoldT">{ webd.title.substring(0,15) }{ webd.title.length > 15 ? "..." : null }</h3>
-                                    <h5 style={{color:"#3E4152"}} className="GilroyMedT">{webd.description.substring(0,40) }{ webd.description.length > 40 ? "..." : null }</h5>
+                                <div className="flex flex-col gap-2 h-full py-2 my-auto  text-left ">
+                                    <h3 style={{color:"#162449"}} className="GilroyBoldT text-[18px]">{ webd?.title?.substring(0,15) }{ webd.title?.length > 15 ? "..." : null }</h3>
+                                    <h5 style={{color:"#3E4152"}} className="GilroyMedT  text-[13px]">{ webd?.description?.substring(0,40) }{ webd.description?.length > 40 ? "..." : null }</h5>
                                 </div>
                                 {/* <button className="disbtn GilroyBoldT" style={{color: "#162449"}} onClick={() => window.open(webd.link, "_blank")}>
                                     Discover
@@ -435,15 +435,15 @@ const Index = () => {
                         {
                       products?.length > 0  ? 
                        <Fragment>
-                        <div className="flex items-center ml-5 mt-8 mb-3 text-[21px] gilroyMedium justify-start  text-[#162449]" style={{fontWeight:700}}>PRODUCTS</div>
+                        <div className="flex items-center ml-5 mt-3 mb-3 text-[21px] gilroyMedium justify-start  text-[#162449]" style={{fontWeight:700}}>PRODUCTS</div>
                         {/* <h3 className="NeuExBlack" style={{marginLeft: "15px", marginTop: "35px"}}>PRODUCT</h3> */}
                         <ScrollMenu>
                             {products.map((brand, index) => (
-                                <div className="vt-cardmain" key={index}>
+                                <div className="vt-cardmain" key={index} style={{marginBottom:"30px",marginTop:"10px"}}>
                                 <img src={brand.coverimage} className="vt-img rounded-[20px]" style={{height:"100px"}} /> 
-                                <div className="vt-content">
-                                    <h3 style={{color:"#162449"}} className="GilroyBoldT">{brand.title.substring(0,15)}{ brand.title.length > 15 ? "..." : null }</h3>
-                                    <h5 style={{color:"#3E4152"}} className="GilroyMedT">{brand.description.substring(0,40)}{ brand.description.length > 40 ? "..." : null }</h5>
+                                <div className="flex flex-col gap-2 h-full py-2  my-auto text-left ">
+                                    <h3 style={{color:"#162449"}} className="GilroyBoldT text-[18px]">{brand?.title?.substring(0,30)}{ brand?.title?.length > 30 ? "..." : null }</h3>
+                                    <h6 style={{color:"#3E4152"}} className="GilroyMedT text-[13px]">{brand?.description?.substring(0,60)}{ brand?.description?.length > 60 ? "..." : null }</h6>
                                 </div>
                                 {/* <button className="disbtn GilroyBoldT" style={{color: "#162449"}} onClick={() => window.open(brand.link, "_blank")}>
                                     Discover

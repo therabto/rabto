@@ -308,32 +308,40 @@ return (
           :
         null
       }
-    <div className='min-h-[50vh] max-w-[768px] md:max-w-[400px] relative'>
+       <div className='bg-white shadow-md w-[100%] md:max-w-[400px] fixed  z-20 py-5 h-[70px] rounded-b-[20px] border-1'>
+        <div className='w-[100%]'>
+        <button className=' top-5 right-5 text-[15px] m-auto items-center text-[#162604] font-medium w-[130px] py-1 active:text-[18px] bg-[#9EE86F] flex justify-center gap-1 rounded-[20px]' onClick={()=>{EditDataSetHandler() ;setShowModal3(true)}}>
+          <MdOutlineModeEditOutline className='text-[#162604]  rounded-[7px] '/> <span>Edit</span>
+        </button>
+        </div>
+      </div>
+    <div className='min-h-[50vh] max-w-[768px] md:max-w-[400px] fixed'>
+     
     <div className='w-[100%] md:max-w-[400px] fixed' >
-      <div className='w-[100%] h-[210px]'>
-        <img src={userData?.banner} loading="lazy" alt="Profile GIF" className='h-[210px] w-[100%] ' />
+      <div className='w-[100%] h-[220px]'>
+        <img src={userData?.banner} loading="lazy" alt="Profile GIF" className='h-[220px] w-[100%] object-cover ' />
     {/* <button className='absolute top-[120px] left-[80%] text-[20px] items-center font-medium px-2 active:text-[35px] text-[#9EE86F] flex gap-1 rounded-full' onClick={()=>{EditDataSetHandler() ;setShowModal1(true)}}>
          <FiEdit className='' />
          </button> */}
-        <button className='absolute top-5 right-5 text-[20px] items-center font-medium px-2 active:text-[35px] bg-[#9EE86F] flex justify-center gap-1 rounded-full' onClick={()=>{EditDataSetHandler() ;setShowModal3(true)}}>
-          <MdOutlineModeEditOutline className='text-[#162604] p-1 rounded-[7px] text-[25px]'/> <span>Edit</span>
-        </button>
+       
         </div>
     </div>
-    <div className='relative max-w-[768px] md:max-w-[400px] z-20 top-[150px] '>
-      <div ref={componentRef}
-       className={`${isAtTop ? "rounded-none" : "rounded-t-[40px]"} transition-all duration-300 bg-white   pb-10 relative `}
-       >
-        <div className={`${isAtTop ? "rounded-none" : "rounded-t-[40px]" } bg-[#F4F4F4] transition-all duration-300 `}>
-         <div className=' relative m-auto  -top-[60px] w-[100px] h-[100px] rounded-full bg-white ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
+    <div className='relative w-[95%]  px-3 mx-auto z-20 top-[200px] '>
+      
+        <div className={`${isAtTop ? "rounded-none" : "rounded-[10px]" } bg-[#FFFF] mx-auto transition-all duration-300 `} style={{
+    boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px'
+}}
+>
+         <div className=' relative m-auto  -top-[45px] w-[100px] h-[100px] rounded-full bg-white ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
               <img loading="lazy" src={userData?.profilePhoto} className='w-[100px] h-[100px]  rounded-full bg-white' />
               {/* <button className='absolute top-0 p-2 right-0 h-[35px] w-[35px] items-center font-medium px-2 active:text-[35px] border-[#9EE86F] flex gap-1 rounded-full' onClick={()=>{EditDataSetHandler() ;setShowModal2(true)}}>
-                 <FiEdit className='text-[#9EE86F] text-[30px]' />
-              </button> */}
+                     <FiEdit className='text-[#9EE86F] text-[30px]' />
+                  </button>
+             */}
         </div>
         <div className='relative -top-[40px] '>
-          <div className="flex items-center font-bold text-[24px] gilroyBold justify-center text-[#000000] relative">{userData?.displayName} </div>
-          <div className="flex items-center font-bold text-[16px] gilroyMedium justify-center text-center text-[#3E4152] px-4">{userData?.About}</div>          
+          <div className="flex items-center font-bold text-[24px] gilroyBold justify-center text-[#000000] relative">{userData?.displayName?.substring(0,15)}{userData?.displayName?.length > 15 ? "...":null} </div>
+          <div className="flex items-center font-bold text-[16px] gilroyMedium justify-center text-center text-[#3E4152] px-4">{userData?.About?.substring(0,80)}{userData?.About?.length > 80 ? "...":null}</div>          
            <div className='flex items-center justify-center gap-5 mt-6'>
            {userData?.whatsapp ? <a  href={`https://wa.me/${userData?.whatsapp}`}
            target="_blank"
@@ -358,8 +366,8 @@ return (
         </div>
         </div> */}
 
-      </div>
-     <Footer/>     
+      
+     {/* <Footer/>      */}
 
     </div>
     <div>
@@ -453,7 +461,7 @@ null
 
 { showModal3 ?
     <Fragment>
-         <div className='absoute top-0 bottom-0 left-0 right-0 z-40 bg-white opacity-100'></div>
+         <div className='fixed max-w-[768px] md:max-w-[400px] m-auto top-0 bottom-0 left-0 right-0 z-40 bg-white opacity-100'></div>
       {
         isLoading ?
                 <div className='z-50'>
@@ -461,7 +469,7 @@ null
                 </div>
                 :
         <>
-        <div className="absolute left-0 right-0 top-0 bottom-0 z-50 bg-[#CBCBCB] ">
+        <div className="fixed max-w-[768px] md:max-w-[400px] m-auto left-0 right-0 top-0 bottom-0 z-50 bg-[#CBCBCB] ">
             <div className=' flex items-center justify-center m-auto  w-[100%] '>
                 <div className='w-[100%] h-[98vh] overflow-y-scroll  bg-[#CBCBCB] ' >
                <div className="sticky z-10 top-0">
@@ -524,7 +532,7 @@ null
                <div className='flex items-center justify-center  flex-col'>
                <input type="file" id="uplod-banner-image" className='hidden' onChange={handleProfileBannerUpload}  />
                 <label htmlFor='uplod-banner-image' className=' relative    w-[80px]  ' style={{boxShadow: "0px 7px 11.399999618530273px 1px #1624494D"}}>
-                 <img src={banner} alt="Profile GIF" className='w-[80px] h-[30px] m-auto '  />
+                 <img src={banner} alt="Profile GIF" className='w-[200px] h-[40px] m-auto '  />
                  {uploading2 ?
                            <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
                            <div className='z-20 flex items-center justify-center'>
