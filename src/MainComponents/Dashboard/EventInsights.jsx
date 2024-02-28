@@ -11,7 +11,7 @@ import ExportTOFullExcel from './ExportTOFullExcel';
 import Loading from '../../Components/Loading/Loading';
 
 const Tabs = [
-  {Name:"My Stall Leads",match:"MYSTALL"},
+  {Name:"Stall Leads",match:"MYSTALL"},
   {Name:"All Leads",match:"ALLLEADS"},
   // {Name:"Events",match:"EVENTS"}
 ]
@@ -51,9 +51,9 @@ const UpdateLeadHandler = (id , leads)=>{
     eventid:Event_ID,
     lead:leads 
    }
-   console.log('data',data);
+  //  console.log('data',data);
 LeadCreateHandler("POST",data).then((response)=>{
-   console.log("response",response);
+  //  console.log("response",response);
 })
 }
 useEffect(()=>{
@@ -62,12 +62,12 @@ useEffect(()=>{
 
 const getStallHandler = ()=>{
   GetuserStallHandler(userid).then(response=>{
-        console.log("reponse event",response)
+        // console.log("reponse event",response)
         setStallProfile(response.data); 
 
     })
    }
-console.log("stall profile",stallProfile);
+// console.log("stall profile",stallProfile);
 useEffect(()=>{
   if(activeTab === "MYSTALL")
   GetVisitorDetailsHandler()
@@ -85,23 +85,26 @@ const GetVisitorDetailsHandler = ()=>{
       eventid :Event_ID
     }
     GetDashboardVisitorsForEvents("POST",data).then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        setVisitorDeatails(response.data);
        setBookMark(response.BookmarkCount);
        setIsLoading(false);
 
     })
   
-      console.log("eventid",Event_ID , "Stall ID",stallProfile._id);
+      // console.log("eventid",Event_ID , "Stall ID",stallProfile._id);
+  }
+  else{
+    setIsLoading(false);
   }
 } 
 
-console.log("tabs",activeTab);
+// console.log("tabs",activeTab);
 
 const GetApplicationUserLeads = ()=>{
   setIsLoading(true);
   getUserDetailsForleadsHandler().then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        setVisitorDeatails(response.data);
        setIsLoading(false);       
   })
@@ -115,6 +118,7 @@ const GetApplicationUserLeads = ()=>{
          :
          null
       }
+      
       <div className="border max-w-[600px] lg:max-w-[400px] m-auto ">
            <div className=' min-h-[93vh]'>
             <div className='sticky top-0 left-0 z-10 right-0 bg-white'>
@@ -122,7 +126,11 @@ const GetApplicationUserLeads = ()=>{
                <div className="flex-1 text-left"><Link to="/userdashboard"><FaArrowLeft className='text-[20px]' /></Link></div>
             </div>
             </div>
-            <div className='mx-5 mt-10'>
+            {
+          stallProfile == "" || stallProfile == null ? 
+         <div className='flex justify-center items-center text-[40px] font-semibold'> No Leads Found </div> 
+          :   <>
+         <div className='mx-5 mt-10'>
 
              <div className='text-[#000000] gilroyBold text-[18px] font-semibold mb-5'>Event insights</div>
              <div className='w-[100%] rounded-[20px] py-4 px-2' style={{ boxShadow: '0px 4px 6.599999904632568px 0px #00000040'}}>
@@ -173,10 +181,10 @@ const GetApplicationUserLeads = ()=>{
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Name:</div>
                         <div className="col-span-2 text-start text-[14px] font-bold text-[#000000]">{item.visitorName}</div>
                       </div>
-                      <div className="grid grid-cols-4 gap-2">
+                      {/* <div className="grid grid-cols-4 gap-2">
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Company Name:</div>
                         <div className="col-span-2 text-start text-[12px] font-semibold text-[#000000] ">{item.visitorCompanyName}</div>
-                      </div>
+                      </div> */}
                       <div className="grid grid-cols-4 gap-2">
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Mobile Number:</div>
                         <div className="col-span-2 text-start text-[12px]  font-semibold text-[#000000]">{item.visitorMobileNumber}</div>
@@ -241,14 +249,20 @@ const GetApplicationUserLeads = ()=>{
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Name:</div>
                         <div className="col-span-2 text-start text-[14px] font-bold text-[#000000]">{item.displayName}</div>
                       </div>
-                      <div className="grid grid-cols-4 gap-2">
+                      {/* <div className="grid grid-cols-4 gap-2">
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Company Name:</div>
                         <div className="col-span-2 text-start text-[12px] font-semibold text-[#000000] ">{item.companyName}</div>
-                      </div>
+                      </div> */}
+                      {
+                      item?.mobileNo ?
+                      
                       <div className="grid grid-cols-4 gap-2">
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Mobile Number:</div>
                         <div className="col-span-2 text-start text-[12px]  font-semibold text-[#000000]">{item.mobileNo}</div>
                       </div>
+                      :
+                      null
+                      }
                       <div className="grid grid-cols-4 gap-2">
                         <div className="col-span-2 text-start text-[#797979] text-[12px]">Email id:</div>
                         <div className="col-span-2 text-start text-[12px] font-semibold text-[#000000]">{item.email}</div>
@@ -296,6 +310,8 @@ const GetApplicationUserLeads = ()=>{
             }
 
             </div>
+            </>
+           }
              
             </div>
             {/* Footer  */}

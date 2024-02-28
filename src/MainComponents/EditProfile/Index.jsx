@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useParams } from 'react-router-dom';
 import Minilogo from "../../Assets/Visitors/mini_logo.png";
 import { FaArrowLeft } from 'react-icons/fa6';
 import Profile from './Profilenew';
@@ -25,9 +25,15 @@ const Index = () => {
     }
   },[USER_NAME])
 
+  let { tab } = useParams();
+
+  useEffect(()=>{
+     handleTab(tab)
+  },[tab])
+
   const GetauserProfile = async ()=>{
     GetuserProfile(USER_NAME).then(response=>{
-        console.log("response",response);
+        // console.log("response",response);
         if(response.isSuccess){
            setUserData(response.data);
         }
@@ -38,12 +44,12 @@ const Index = () => {
   const handleTab = (tabValue)=>{
      setActiveTab(tabValue)
   }
-  console.log("user data",userData);
+  // console.log("user data",userData);
 
   return (
    <Fragment>
            <Fragment>
-        <div className=' min-h-[93vh] mb-20 max-w-[600px] lg:max-w-[400px] m-auto relative md:border'>
+        <div className=' min-h-[93vh] mb-20 max-w-[768px] md:max-w-[400px] m-auto relative md:border'>
             <div className='sticky top-0 left-0 z-10 right-0 bg-white'>
             <div className='mx-5 flex p-4'>        
                <div className="flex-1 text-left"><Link to={`/profile/${USER_NAME}`}><FaArrowLeft className='text-[20px]' /></Link></div>

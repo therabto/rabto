@@ -97,16 +97,16 @@ const callPhoneNumber = (phoneNumber) => {
 const serviceHandler = ()=>{
    
    GetuserServiceHandler(userData?._id).then(response=>{
-       console.log("reponse service",response)
+      //  console.log("reponse service",response)
        setServices(response.data);
 
    })
   }
-  console.log("user profile data ", userData)
+//   console.log("user profile data ", userData)
 
   const productHandler = ()=>{
    GetuserProductHandler(userData?._id).then(response=>{
-       console.log("reponse Product",response)
+      //  console.log("reponse Product",response)
        setProducts(response.data);
 
    })
@@ -114,7 +114,7 @@ const serviceHandler = ()=>{
 
   const getEventHandler = ()=>{
    GetuserEventHandler(userData?._id).then(response=>{
-         console.log("reponse event",response)
+         // console.log("reponse event",response)
          setEvents(response.data);
   
      })
@@ -122,12 +122,7 @@ const serviceHandler = ()=>{
 
   return (
    <Fragment>
-      
    
-   
-   
-     
-
     <div className='min-h-[90vh] relative'>
         <div className=' absolute top-5 left-5'>
             <div className='w-[30px] h-[30px] rounded-full flex items-center justify-center font-extrabold' style={{boxShadow: "0px 2px 7px 1px #1624494D"}}><IoArrowBack className='text-[20px] active:text-[18px]'/></div>

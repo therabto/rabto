@@ -1,14 +1,14 @@
 import React,{Fragment} from 'react'
 
-const Popup = ({isDelete ,isUserEdit ,isUserCreate ,isAddFarm ,isEditFarm ,isUserDelete ,isAddProduced ,isInventoryDelete ,isEditProduced, isEdit , isCreate , handleModel ,isAddClient ,isEditClient}) => {
+const Popup = ({isDelete    , isEdit , isCreate , handleModel }) => {
   return (
     <Fragment>
         
         <div className='fixed top-0 bottom-0 left-0 right-0 nunitoSans z-50 bg-black opacity-60'></div>
-        <div className='nunitoSans fixed lg:ml-[320px] top-[0px] bottom-0 left-0 right-0 z-50 rounded-b-[20px] px-10 py-8 '  >
+        <div className='nunitoSans fixed  top-[0px] bottom-0 left-0 right-0 z-50 rounded-b-[20px] px-10 py-8 '  >
            
            <div className='flex items-center justify-center'>
-                <div className='mt-[40%] lg:mt-[15%] p-4 bg-white w-[100%] lg:w-[300px] rounded-[20px]'>
+                <div className='mt-[40%] lg:mt-[15%] p-4 bg-white w-[300px] rounded-[20px]'>
                 <div className='text-center px-4 pt-4' style={{color:"#2D333C"}}>Are you sure you want to 
                 {isCreate? " Create?" : null}
                 {isEdit? " edit?" : null}

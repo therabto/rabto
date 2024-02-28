@@ -30,6 +30,8 @@ import { FiTrash2 } from 'react-icons/fi';
 import Popup from '../Popup/Popup';
 import SuccessFailure from '../SuccessFailure/SuccessFailure';
 import Loading from '../../Components/Loading/Loading';
+import CropSection from './CropSection';
+import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
 const Links = ({ USER_NAME ,userData }) => {
   const [showModal1, setShowModal1] = useState(false);
@@ -46,12 +48,14 @@ const Links = ({ USER_NAME ,userData }) => {
   const [isEditPopup,setIsEditPopup] = useState(false);
   const [isCreatePopup,setIsCreatePopup] = useState(false);
   const [isDeletePopup,setIsDeletePopup] = useState(false);
+  const [editdata,setEditData] = useState('');
 
   const [isSuccessFail,setIsSuccessFail] = useState(false);
   const [isSuccess,setIsSuccess] = useState(false);
   const [isLoading,setIsLoading] = useState(false);
   const [message,setMessage] = useState("");
   const [selectDeleteItem,setSelectDeleteItem] = useState("");
+  const [croppingModal1Open,setCroppingModel1Open] = useState(false);
 
   const handleModalClose = ()=>{
     setShowModal1(false);
@@ -63,16 +67,17 @@ const Links = ({ USER_NAME ,userData }) => {
     if(file){
       let imageurl = URL.createObjectURL(file);
          setCoverImage(imageurl);
-         setUploading(true);
-         UploadFile(file)
-            .then((downloadURL) => {
-              console.log("Download URL:", downloadURL);
-              setCoverImage(downloadURL);
-              setUploading(false);
-             })
-            .catch((error) => {
-              console.error("Error:", error);
-               });
+         setCroppingModel1Open(true);
+        //  setUploading(true);
+        //  UploadFile(file)
+        //     .then((downloadURL) => {
+        //       // console.log("Download URL:", downloadURL);
+        //       setCoverImage(downloadURL);
+        //       setUploading(false);
+        //      })
+        //     .catch((error) => {
+        //       // console.error("Error:", error);
+        //        });
 
     }
   }
@@ -84,7 +89,7 @@ const Links = ({ USER_NAME ,userData }) => {
 
 const serviceHandler = ()=>{
    GetuserServiceHandler(userData._id).then(response=>{
-       console.log("reponse service",response)
+      //  console.log("reponse service",response)
        setServices(response.data);
 
    })
@@ -92,7 +97,7 @@ const serviceHandler = ()=>{
 
   const productHandler = ()=>{
    GetuserProductHandler(userData._id).then(response=>{
-       console.log("reponse Product",response)
+      //  console.log("reponse Product",response)
        setProducts(response.data);
    })
   }
@@ -110,7 +115,7 @@ const serviceHandler = ()=>{
    setIsLoading(true)
    if(action === "CREATE"){
    CreateServiceOrProductHandler("POST",data).then(response=>{
-       console.log("response",response);
+      //  console.log("response",response);
        setIsLoading(false);
 
        if(response.isSuccess){
@@ -138,11 +143,11 @@ const serviceHandler = ()=>{
    })
    }
    else if(action === "UPDATE"){
-        console.log("update handler!!")
+        // console.log("update handler!!")
          data.UserID = userid ;
          data.servicesid = serviceid;
         UpdateServiceOrProductHandler("POST",data).then(response=>{
-            console.log("response",response);
+            // console.log("response",response);
             setIsLoading(false);
 
             if(response.isSuccess){
@@ -178,7 +183,7 @@ const serviceHandler = ()=>{
 
   const DeleteHandler = (item)=>{
    DeleteServiceOrProductHandler("DELETE",{serviceid:item._id}).then(response=>{
-      console.log("response",response);
+      // console.log("response",response);
       if(response.isSuccess){
          serviceHandler();
           productHandler();
@@ -211,11 +216,12 @@ const serviceHandler = ()=>{
    setDescription("");
    setIsServiceOrProduct("");
    setLink("");
-   setServiceID("")
+   setServiceID("");
+   setEditData("");
   }
 
   const handleEdit = (data)=>{
-   console.log("data",data);
+  //  console.log("data",data);
    setIsEdit(true);
    setShowModal1(true);
    setCoverImage(data.coverimage);
@@ -224,6 +230,7 @@ const serviceHandler = ()=>{
    setIsServiceOrProduct(data.type);
    setLink(data.link);
    setServiceID(data._id)
+   setEditData(data);
   }
 
   const handleEditmodel = (action)=>{
@@ -253,6 +260,37 @@ const handleSuccessFail = ()=>{
 setIsSuccessFail(!isSuccessFail);
 }
 
+const handleCoverCroppedImgSet = (image)=>{
+  //  console.log("image",image);
+  setUploading(true);
+
+  setCroppingModel1Open(false);
+  setShowModal1(true);
+   
+   UploadFile(image)
+   .then((downloadURL) => {
+    console.log("Download URL: ", downloadURL);
+       setCoverImage(downloadURL);
+       setUploading(false);
+    })
+   .catch((error) => {
+     console.error("Error:", error);
+    }); 
+}
+
+
+const handlecancel = ()=>{
+  setShowModal1(true);
+  setCroppingModel1Open(false);
+  if(isEdit){
+  console.log("editdata.coverImage",editdata)
+  setCoverImage(editdata.coverimage);
+  }
+  else
+  setCoverImage("");
+ }
+
+
   return (
    
    <Fragment>
@@ -263,6 +301,13 @@ setIsSuccessFail(!isSuccessFail);
                 :
                 null
             }
+
+{
+        croppingModal1Open ? 
+      <CropSection imageSetHandler={handleCoverCroppedImgSet} image={coverImage} cancelhandler={handlecancel} aspect={2}/>
+          :
+        null
+      }
       {/* <div className='p-4 w-[100%] text-center'>Note : <q>You Can Create Upto 5 category</q></div> */}
       {/* <div className='px-4 w-[100%] flex items-center font-bold text-[20px]'> <div className='flex-1 left'>Create a category</div> <div className='text-[12px] text-end'>( 0 / 50 )</div> </div> */}
        {/* <div className='flex items-center p-4 w-[100%] gap-3 '>
@@ -285,191 +330,81 @@ setIsSuccessFail(!isSuccessFail);
         <div className='flex-1 text-[20px] text-left font-bold'>Services / Products </div>
         <div className=' text-right   font-bold'> <button className='bg-[#9EE86F] flex gap-2 text-[16px] active:text-[18px] items-center justify-center rounded-[52px] px-5 py-1 text-[#0F2604] ' onClick={()=>setShowModal1(true)}><FaPlus  className='text-[#1C1B1F]' /> Add</button> </div>
          </div>
+
+         {
+                        services?.length > 0  ?
+                        <Fragment>
+                               <div className="flex items-center ml-5 mt-3 mb-3 text-[25px] gilroyMedium justify-start  text-[#162449]" style={{fontWeight:700}}>Services</div>
+
+                        <ScrollMenu>
+                            {services.map((item, index) => (
+                                 <div className='ml-5 my-5'>
+                                 <div  className=' shadow-md relative shadow-[#1624494D]  pl-2 pt-3 pr-2 border rounded-[20px] h-[290px] w-[230p' >
+                                  <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[150px] h-[100px]">
+                                    <img src={item.coverimage} alt="product image" className='w-[150px] h-[100px] rounded-[15px] object-cover' />
+                                  </div>
+                                     
+                                    <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item?.title?.substring(0,15)}{item?.item?.length > 15 ? "..." : null}</div>
+                                    <div className='absolute bottom-0 left-0 right-0 w-[100%] px-2   '>
+                                   
+               
+                                     <div className="flex gap-3 item-center justify-center flex-col w-[100%] mb-5">
+                                        <div className='w-[100%] '>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[95%] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
+                                        </div>
+                                        <div className='w-[100%] '>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
+                                        </div>
+                                     </div>      
+                                           
+                                     </div>
+                                  </div>
+                                  </div>
+                            ))}
+                        </ScrollMenu>
+                        </Fragment>
+                        :
+                        null
+                        }
+
+                 {
+                      products?.length > 0  ? 
+                       <Fragment>
+                       <div className="flex items-center ml-5 mt-3 mb-3 text-[25px] gilroyMedium justify-start  text-[#162449]" style={{fontWeight:700}}>Products </div>
+
+                        <ScrollMenu>
+                            {products.map((item, index) => (
+                                 <div className='ml-5 my-5'>
+                                 <div  className=' shadow-md relative shadow-[#1624494D]  pl-2 pt-3 pr-2 border rounded-[20px] h-[290px] w-[230p' >
+                                  <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[150px] h-[100px]">
+                                    <img src={item.coverimage} alt="product image" className='w-[150px] h-[100px] rounded-[15px] object-cover' />
+                                  </div>
+                                     
+                                    <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item?.title?.substring(0,15)}{item?.item?.length > 15 ? "..." : null}</div>
+                                    <div className='absolute bottom-0 left-0 right-0 w-[100%] px-2   '>
+                                   
+               
+                                     <div className="flex gap-3 item-center justify-center flex-col w-[100%] mb-5">
+                                        <div className='w-[100%] '>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[95%] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
+                                        </div>
+                                        <div className='w-[100%] '>
+                                           <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
+                                        </div>
+                                     </div>      
+                                           
+                                     </div>
+                                  </div>
+                                  </div>
+                            ))}
+                        </ScrollMenu>
+                        </Fragment>
+                        :
+                        null
+                       }
         
         
-     {
-      services?.length > 0 ?     
-      <div className='mt-10 mx-5'>
-           <div className='text-[#000000] gilroyBold text-[18px] font-semibold mb-5'>Services</div>
-           <Swiper
-                slidesPerView={1.5}
-                spaceBetween={10}
-                // navigation={true}
-                modules={[Navigation]}
-                style={{padding:"10px 10px 20px 0px"}}
-                >
-                  {
-                     services.length > 0 && services.map(item=>
-                  <SwiperSlide className=' ' >
-                   <div >
-                  <div  className=' shadow-md relative shadow-[#1624494D]  pl-4 pt-3 pr-4 border rounded-[20px] h-[350px] w-[230px]' >
-                   <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[200px] h-[100px]">
-                     <img src={item.coverimage} alt="product image" className='w-[200px] h-[100px] rounded-[15px]' />
-                   </div>
-                      
-                     <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item.title}</div>
-                     <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5   '>
-                    
-
-                      <div className="flex gap-5 item-center justify-center flex-col w-[100%] mb-5">
-                         <div className='w-[100%] '>
-                            <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
-                         </div>
-                         <div className='w-[100%] '>
-                            <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
-                         </div>
-                      </div>      
-                            
-                      </div>
-                   </div>
-                   </div>
-                  </SwiperSlide>
-                        )
-                  }
-                
-
-                  
-                  {/* <SwiperSlide className='w-100px h-[350px] ' >
-                  <div className=' shadow-lg shadow-[#1624494D] px-4 py-5 border rounded-[20px] w-[220px] h-[350px]' >
-                     <div className='h-[100px] w-[100%]  rounded-[20px] mb-3 '>
-                      <img src={csc} className='w-[100%] object-cover' alt="" />
-                     </div>
-                     <div className="text-[#162449] text-[18px] font-bold gilroyBold py-3">Coimbatore SocialClub</div>
-                     <div className="text-[#3E4152] text-[13px] font-bold gilroyBold py-3">Dynamic website</div>
-                     <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5'>
-                      <div className='flex items-center justify-center py-3 w-[100%]'>
-                         <button className='w-[100%]   bg-[#F4F4F4] rounded-[20px] py-2 text-[#162449] text-[13px] '>Discover</button>
-                      </div>
-                      </div>
-                   </div>
-                  </SwiperSlide> 
-                  <SwiperSlide className='w-100px h-[350px]' >
-                  <div className=' shadow-lg shadow-[#1624494D] px-4 py-5 border rounded-[20px] w-[220px] h-[350px]' >
-                     <div className='h-[100px] w-[100%]  rounded-[20px] mb-3 '>
-                      <img src={anna} className='w-[100%] object-cover' alt="" />
-                     </div>
-                     <div className="text-[#162449] text-[18px] font-bold gilroyBold py-3">Annalakshmi</div>
-                     <div className="text-[#3E4152] text-[13px] font-bold gilroyBold py-3">Dynamic site with reservation module</div>
-                     <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5'>
-                      <div className='flex items-center justify-center py-3 w-[100%]'>
-                         <button className='w-[100%]   bg-[#F4F4F4] rounded-[20px] py-2 text-[#162449] text-[13px] '>Discover</button>
-                      </div>
-                      </div>
-                   </div>
-                  </SwiperSlide> 
-                  <SwiperSlide className='w-100px h-[350px] ' >
-                  <div className=' shadow-lg shadow-[#1624494D] px-4 py-5 border rounded-[20px] w-[220px] h-[350px]' >
-                     <div className='h-[100px] w-[100%]  rounded-[20px] mb-3 '>
-                      <img src={codingdeaf} className='w-[100%] object-cover' alt="" />
-                     </div>
-                     <div className="text-[#162449] text-[18px] font-bold gilroyBold py-3">Code for Deaf</div>
-                     <div className="text-[#3E4152] text-[13px] font-bold gilroyBold py-3">Dynamic website</div>
-                     <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5'>
-                      <div className='flex items-center justify-center py-3 w-[100%]'>
-                         <button className='w-[100%]   bg-[#F4F4F4] rounded-[20px] py-2 text-[#162449] text-[13px] '>Discover</button>
-                      </div>
-                      </div>
-                   </div>
-                  </SwiperSlide>  */}
-                  
-            </Swiper>
-          
-
-        </div>
-        :
-        null
-      }
-       {
-         products?.length > 0  ? 
-         <div className='mt-10 mx-5'>
-         <div className='text-[#000000] gilroyBold text-[18px] font-semibold mb-5'>Products</div>
-         <Swiper
-              slidesPerView={1.5}
-              spaceBetween={10}
-              // navigation={true}
-              modules={[Navigation]}
-              style={{padding:"10px 10px 20px 0px"}}
-              >
-               {
-                  products.length > 0 &&
-                 products.map(item=>
-                  <SwiperSlide className=' ' >
-                  <div >
-                 <div  className=' shadow-md relative shadow-[#1624494D]  pl-4 pt-3 pr-4 border rounded-[20px] h-[350px] w-[230px]' >
-                  <div className="flex bg-[#162449] items-center justify-center rounded-[15px] w-[200px] h-[100px]">
-                    <img src={item.coverimage} alt="product image" className='w-[200px] h-[100px] rounded-[15px]' />
-                  </div>
-                     
-                    <div className="text-[#162449] mt-2 text-[18px] font-bold gilroyBold py-3 flex items-center justify-start">{item.title}</div>
-                    <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5   '>
-                   
-
-                     <div className="flex gap-5 item-center justify-center flex-col w-[100%] mb-5">
-                        <div className='w-[100%] '>
-                           <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 border border-[#9EE86F] rounded-[20px]" onClick={()=>{handleEdit(item)}}> <MdOutlineModeEdit /> Edit   </button>
-                        </div>
-                        <div className='w-[100%] '>
-                           <button className="flex items-center gilroyBold text-[14px] w-[150px] h-[30px] m-auto justify-center gap-2 text-[#FFFFFF] bg-[#EB714C] rounded-[20px]" onClick={()=>{setSelectDeleteItem(item);setIsDeletePopup(true)}}> <FiTrash2 /> Delete   </button>
-                        </div>
-                     </div>      
-                           
-                     </div>
-                  </div>
-                  </div>
-                 </SwiperSlide> 
-                 )
-               }
-
-                {/* <SwiperSlide className='w-100px h-[350px] ' >
-                <div className=' shadow-lg shadow-[#1624494D] px-4 py-5 border rounded-[20px] w-[220px] h-[350px]' >
-                   <div className='h-[100px] w-[100%]  rounded-[20px] mb-3 '>
-                    <img src={csc} className='w-[100%] object-cover' alt="" />
-                   </div>
-                   <div className="text-[#162449] text-[18px] font-bold gilroyBold py-3">Coimbatore SocialClub</div>
-                   <div className="text-[#3E4152] text-[13px] font-bold gilroyBold py-3">Dynamic website</div>
-                   <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5'>
-                    <div className='flex items-center justify-center py-3 w-[100%]'>
-                       <button className='w-[100%]   bg-[#F4F4F4] rounded-[20px] py-2 text-[#162449] text-[13px] '>Discover</button>
-                    </div>
-                    </div>
-                 </div>
-                </SwiperSlide> 
-                <SwiperSlide className='w-100px h-[350px]' >
-                <div className=' shadow-lg shadow-[#1624494D] px-4 py-5 border rounded-[20px] w-[220px] h-[350px]' >
-                   <div className='h-[100px] w-[100%]  rounded-[20px] mb-3 '>
-                    <img src={anna} className='w-[100%] object-cover' alt="" />
-                   </div>
-                   <div className="text-[#162449] text-[18px] font-bold gilroyBold py-3">Annalakshmi</div>
-                   <div className="text-[#3E4152] text-[13px] font-bold gilroyBold py-3">Dynamic site with reservation module</div>
-                   <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5'>
-                    <div className='flex items-center justify-center py-3 w-[100%]'>
-                       <button className='w-[100%]   bg-[#F4F4F4] rounded-[20px] py-2 text-[#162449] text-[13px] '>Discover</button>
-                    </div>
-                    </div>
-                 </div>
-                </SwiperSlide> 
-                <SwiperSlide className='w-100px h-[350px] ' >
-                <div className=' shadow-lg shadow-[#1624494D] px-4 py-5 border rounded-[20px] w-[220px] h-[350px]' >
-                   <div className='h-[100px] w-[100%]  rounded-[20px] mb-3 '>
-                    <img src={codingdeaf} className='w-[100%] object-cover' alt="" />
-                   </div>
-                   <div className="text-[#162449] text-[18px] font-bold gilroyBold py-3">Code for Deaf</div>
-                   <div className="text-[#3E4152] text-[13px] font-bold gilroyBold py-3">Dynamic website</div>
-                   <div className='absolute bottom-0 left-0 right-0 w-[100%] px-5'>
-                    <div className='flex items-center justify-center py-3 w-[100%]'>
-                       <button className='w-[100%]   bg-[#F4F4F4] rounded-[20px] py-2 text-[#162449] text-[13px] '>Discover</button>
-                    </div>
-                    </div>
-                 </div>
-                </SwiperSlide>  */}
-                
-          </Swiper>
-        
-
-      </div>
-       :
-       null
-       }
+     
       
         { showModal1 ?
     <Fragment>
@@ -486,9 +421,9 @@ setIsSuccessFail(!isSuccessFail);
                 <div className='text-end'>
                 {
                      isEdit ?
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>{setIsEditPopup(true)}}>Save</button>
+                    <button disabled={ uploading } className={`${uploading  ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`}  onClick={()=>{setIsEditPopup(true)}}>Save</button>
                      :
-                    <button className='text-[#52D22E] cursor-pointer font-bold' onClick={()=>{setIsCreatePopup(true)}}>Add</button>
+                    <button disabled={ uploading  } className={`${uploading  ? "text-[red]" : "text-[#52D22E]"} cursor-pointer font-bold`} onClick={()=>{setIsCreatePopup(true)}}>Add</button>
                   }
                 </div>
                </div>
@@ -497,12 +432,14 @@ setIsSuccessFail(!isSuccessFail);
                <div className='mx-5 flex py-10 mb-10 flex-col gap-10 rounded-[20px] p-5 bg-white mt-[30px]'>
                <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>Title <sup className='text-[#D50B0B]'>*</sup></div>
+                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { title.length } / 50 ) </div>
+
                 <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><MdTitle /></div>
                 <input type="text" value={title} placeholder='title' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setTitle(e.target.value)} />
                </div> 
                <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-3 text-[#5A5A5A]  bg-white pl-2'> Descripiton <sup className='text-[#D50B0B]'>*</sup></div>
-                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { description.length } / 1000 ) </div>
+                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { description.length } / 100 ) </div>
                 <textarea rows={10} value={description} placeholder='Give a Description ' className=' py-5 w-[100%] px-10  border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDescription(e.target.value)} ></textarea>
 
                </div>    
@@ -527,8 +464,8 @@ setIsSuccessFail(!isSuccessFail);
                 <input type="file"  placeholder='title' className='w-[100%] hidden pl-10 h-[200px] border border-[#CBCBCB] rounded-[10px]' onChange={HandleCoverImage} />
                 {
                  coverImage ? 
-                        <div className='relative w-[180px] h-[180px]'>
-                            <img src={coverImage} alt='Cover Image...' className='w-[180px] h-[180px]'/>
+                        <div className='relative w-[180px] h-[160px] flex items-center justify-center'>
+                            <img src={coverImage} alt='Cover Image...' className='w-[150px] m-auto h-auto'/>
                             {uploading ?
                            <div className='absolute flex items-center justify-center top-0 bottom-0 left-0 right-0 z-50 '>
                            <div className='z-20 flex items-center justify-center'>

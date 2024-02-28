@@ -5,14 +5,14 @@ const QrCodeReader = () => {
   const [result, setResult] = useState("");
 
   const handleScan = (data) => {
-    console.log("data",data);
+    // console.log("data",data);
     if (data) {
       setResult(data);
     }
   };
 
   const handleError = (err) => {
-    console.log(err);
+    // console.log(err);
   };
 
   return (

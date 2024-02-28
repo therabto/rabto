@@ -8,11 +8,11 @@ import  Minilogo from "../../Assets/Visitors/mini_logo.png";
 import  gif from "../../Assets/Visitors/Development purpose.gif";
 import Footer from '../../MainComponents/Footer/Footer';
 
-
 const Profile = () => {
   const handlePrint = () => {
     window.print();
   };
+  
   return (
     <Fragment>
       <div className="border max-w-[600px] lg:max-w-[400px] m-auto realtive ">

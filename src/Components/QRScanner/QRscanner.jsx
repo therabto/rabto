@@ -30,7 +30,7 @@ const Html5QrcodePlugin = (props) => {
                 
         function onScanSuccess(decodedText, decodedResult) {
             // Handle on success condition with the decoded text or result.
-            console.log(`Scan result: ${decodedText}`, decodedResult);
+            // console.log(`Scan result: ${decodedText}`, decodedResult);
             // ...
             html5QrcodeScanner.clear();
             // ^ this will stop the scanner (video feed) and clear the scan area.
