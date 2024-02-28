@@ -8,6 +8,7 @@ import { checkCookieHandler } from './APIS/APIs';
 import UserRoutes from './RouteProtection/AuthRoute';
 import ScrollToTop from './ScrollToTop';
 import { user} from "./APIS/CurrentUser";
+import EventAdminDashboard from './MainComponents/eventCio/EventAdminDashboard';
 
 const Login = lazy(() => import('./Components/Entry/Login'));
 const Dashboard = lazy(() => import('./Components/Home/Index'));
@@ -66,6 +67,7 @@ const App = () => {
         <Route path="/profile/:profileUserName" element={ < ProfileV2  />  } />
         <Route path="/proxy/:userID" element={ <Proxy/>  } />
         <Route path="*" element={<Error404/>} />
+        <Route path="/dash" element={<EventAdminDashboard />} />
       </Routes>
     </Suspense>
   );

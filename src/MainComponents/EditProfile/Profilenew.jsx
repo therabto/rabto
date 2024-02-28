@@ -497,7 +497,7 @@ null
                <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-2  bg-white pl-2 text-[12px] text-[#5F5F5F]'>Display Name <sup className='text-[#D50B0B]'>*</sup></div>
                 <div className='absolute left-3 top-4 text-[#757575] text-[20px]'><IoPersonCircleOutline /></div>
-                <input type="text" value={displayName} placeholder='Display Name' className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDisplayName(e.target.value)} />
+                <input type="text" value={displayName} placeholder='Display Name' maxLength={20} className='w-[100%] pl-10 h-[50px] border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDisplayName(e.target.value)} />
                </div>
                {/* <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-3 text-[#5A5A5A] bg-white pl-2'>User Name <sup className='text-[#D50B0B]'>*</sup></div>
@@ -520,8 +520,7 @@ null
                </div>
                <div className=' relative Roboto-Font'>
                 <div className='absolute left-3 -top-2 text-[12px] text-[#5F5F5F]  bg-white pl-2'> Descripiton </div>
-                <div className='absolute right-3 -top-4 text-[#757575]  text-[10px]' style={{fontWeight:500}}>( { descripiton.length } / 500 )</div>
-                <textarea rows={10} value={descripiton} placeholder='Give a Description about you' className=' py-5 w-[100%] px-10  border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDescription(e.target.value)} ></textarea>
+                <textarea rows={10} maxLength={88} value={descripiton} placeholder='Give a Description about you' className=' py-5 h-[150px] w-[100%] px-10  border border-[#CBCBCB] rounded-[10px]' onChange={(e)=>setDescription(e.target.value)} ></textarea>
 
                </div>
                <div className=' relative Roboto-Font'>

@@ -358,7 +358,7 @@ const Index = () => {
                 </div> */}
                 <div>
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} className="mt-3">
-                        <h2 className="MontserratEBold w-[200px] flex items-center justify-center">{userData?.displayName}</h2>
+                        <h2 className="MontserratEBold max-w-[80%] flex text-center items-center justify-center text-[125%]">{userData?.displayName}</h2>
                         <img
                         style={{
                             height:23,
@@ -418,7 +418,7 @@ const Index = () => {
                             {services.map((webd, index) => (
                                 <div className="vt-cardmain " style={{marginBottom:"30px",marginTop:"10px"}} key={index}>
                                 <img src={webd.coverimage} className="vt-img rounded-[20px]" style={{height:"100px"}} /> 
-                                <div className="flex flex-col gap-2 h-full py-2 my-auto  text-left ">
+                                <div className="flex flex-col gap-2 h-full py-4 my-auto  text-left ">
                                     <h3 style={{color:"#162449"}} className="GilroyBoldT text-[18px]">{ webd?.title?.substring(0,15) }{ webd.title?.length > 15 ? "..." : null }</h3>
                                     <h5 style={{color:"#3E4152"}} className="GilroyMedT  text-[13px]">{ webd?.description?.substring(0,40) }{ webd.description?.length > 40 ? "..." : null }</h5>
                                 </div>
@@ -441,7 +441,7 @@ const Index = () => {
                             {products.map((brand, index) => (
                                 <div className="vt-cardmain" key={index} style={{marginBottom:"30px",marginTop:"10px"}}>
                                 <img src={brand.coverimage} className="vt-img rounded-[20px]" style={{height:"100px"}} /> 
-                                <div className="flex flex-col gap-2 h-full py-2  my-auto text-left ">
+                                <div className="flex flex-col gap-2 h-full py-4  my-auto text-left ">
                                     <h3 style={{color:"#162449"}} className="GilroyBoldT text-[18px]">{brand?.title?.substring(0,30)}{ brand?.title?.length > 30 ? "..." : null }</h3>
                                     <h6 style={{color:"#3E4152"}} className="GilroyMedT text-[13px]">{brand?.description?.substring(0,60)}{ brand?.description?.length > 60 ? "..." : null }</h6>
                                 </div>
