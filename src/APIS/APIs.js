@@ -5,7 +5,6 @@ import{jwtDecode} from "jwt-decode" ;
 // export const AfterLoginRedirectURL = `http://localhost:3000/dashboard`;
 
 // const BASE_URL = `http://localhost:8080`;
-const BASE_URL = `https://rabto-itf2.onrender.com`;
 // const BASE_URL = `http://localhost:8080`;
 const BASE_URL = `https://rabto-itf2.onrender.com`
 // const BASE_URL = `https://rabto.onrender.com`;
