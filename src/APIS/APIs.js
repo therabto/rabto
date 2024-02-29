@@ -62,7 +62,7 @@ if (userID) {
   } 
   
 // console.log("Access",userName);
-export let USER_NAME= userName ;
+export let USER_NAME= userName;
 // console.log("userName",userName);
 // export const AfterLoginRedirectURL = `https://app.rabto.in/dashboard`;
 export const AfterLoginRedirectURL = `http://localhost:3000/profile/${responsePayload.userName}`;

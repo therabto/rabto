@@ -30,6 +30,7 @@ const Proxy = lazy(() => import('./Components/Proxy/index'));
 
 
 const App = () => {
+  
   const cookie = Cookies.get("mycookie");
   // console.log("cookie app js",cookie);
   useEffect(()=>{
