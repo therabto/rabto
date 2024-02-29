@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Minilogo from "../../Assets/Visitors/mini_logo.png";
-import Profileimg from "../../Assets/Visitors/profile.png";
+import Minilogo from "../../Assets/logonew.png";
+import Profileimg from "../../Assets/logonew.png";
 import { IoStatsChart } from "react-icons/io5";
 import { MdOutlineDashboard, MdOutlineEdit } from "react-icons/md";
 import { Link, useLocation } from 'react-router-dom';
@@ -58,14 +58,13 @@ const getUserProfile = async()=>{
 
   return (
    <Fragment>
-       <div className=' absolute h-[100vh] rounded-r-[20px] bg-[#E7E7E7] w-[100%] '>
-              <div className='rounded-tr-[20px] px-10 bg-[#E7E7E7] py-3'>
-              <div className='h-[60px] my-auto    bottom-0 left-0 right-0 bg-[#E7E7E7]'>
+       <div className=' absolute h-[100vh] rounded-r-[20px] bg-[#E8E8EE] w-[100%] '>
+              <div className='rounded-tr-[20px] px-10 bg-[#E8E8EE] py-3'>
+              <div className='h-[60px] my-auto    bottom-0 left-0 right-0 bg-[#E8E8EE]'>
               <div className='flex flex-col items-center justify-center  '>
                     <div className="flex  items-center relative  justify-center px-5 ">
-                      <img src={Minilogo} alt='Minilogo' className='w-[33px]' />
-                      <span className='text-[33px] vvdsfifties text-[#0F2604]'>RABTO</span>         
-                      <div className='absolute bottom-0 left-[52px] text-[#0F2604] text-[6px] text-center'>A Product of theDot Tech</div>
+                      <img src={Minilogo} alt='Minilogo' className='w-[77%] my-4' />
+                      
                     </div>
                 </div>
               </div>
@@ -82,15 +81,21 @@ const getUserProfile = async()=>{
               </Link>
 
               <div>
-              <div className='mt-5 flex flex-col gap-2'>
+              <div>
+                
+              </div>
+            
+              
+              <div className='mt-5 flex flex-col gap-2 '>
                 <div className='border-b-[1px] border-[#E7E7E7]'></div>
                  {
                   asideArray.map(menu=>
           
-                    <Link to={`/${menu.path}`} className='flex gap-5 cursor-pointer  border-b-[1px] border-[#E7E7E7] p-2 relative ' >
+                    <Link to={`/${menu.path}`} className='flex gap-5 cursor-pointer  p-2 relative ' >
                      
                     {menu.path === lastSegment ?<div className='h-full w-[7px] absolute -left-[20px] top-0' style={{backgroundColor:"#52D22E"}} ></div> : null }
                      
+                     <div className='flex justify-center items-center'>
                      <div className='my-auto'>
                      {menu.path === "userdashboard" ? <MdOutlineDashboard className=' my-auto text-2xl ' /> : null }
                      {menu.path === "editprofile/PROFILE" ? <FaUserPen className=' my-auto text-2xl ' /> : null }
@@ -101,30 +106,34 @@ const getUserProfile = async()=>{
                                                   </span> : null 
                                                   } */}
                      </div>
-                     <div className='my-auto text-xl font-semibold '>{menu.Name}</div>
-                     <div className='my-auto absolute text-xl font-semibold right-5'><IoIosArrowForward/></div>
+                     <div className='my-auto text-xl font-semibold ml-3 '>{menu.Name}</div>
+                     <div className='my-auto absolute text-xl font-semibold right-5 mt-1'><IoIosArrowForward/></div>
+                     </div>
                      
+
                     </Link>
                     )}
+                     <div className='border-b-[2px] border-[#E7E7E7]'></div>
+                      <div className='mx-auto  flex mx-3 flex-col gap-0 w-[100%]'>
+                        <Link  className='flex gap-5 cursor-pointer w-full  p-2 relative ' >
+                              
+                          {"logout" === lastSegment ?<div className='h-full w-[7px] absolute -left-[20px] top-0'  ></div> : null }
+                            
+                            <div className='my-auto'>
+                            
+                            <HiOutlineLogout className='my-auto text-2xl' onClick={()=>HandleLogout(false)} />
+                            </div>
+                            <div className='my-auto text-xl font-semibold ' onClick={()=>HandleLogout(false)}>Logout</div>
+                            {/* <div className='my-auto absolute text-xl font-semibold right-5'><IoIosArrowForward/></div> */}
+                                
+                        </Link>
+                      </div>                             
                 </div>
                 
              
               </div>
               </div>
-              <div className='mt-10 flex mx-3  flex-col gap-5 w-[100%]  absolute bottom-5'>
-               <Link  className='flex gap-5 cursor-pointer w-full  p-2 relative ' >
-                     
-                     {"logout" === lastSegment ?<div className='h-full w-[7px] absolute -left-[20px] top-0'  ></div> : null }
-                      
-                      <div className='my-auto'>
-                      
-                      <HiOutlineLogout className=' my-auto text-2xl ' onClick={()=>HandleLogout(false)} />
-                      </div>
-                      <div className='my-auto text-xl font-semibold ' onClick={()=>HandleLogout(false)}>Logout</div>
-                      {/* <div className='my-auto absolute text-xl font-semibold right-5'><IoIosArrowForward/></div> */}
-                      
-               </Link>
-               </div>
+              
               </div>
           </div>
    </Fragment>
